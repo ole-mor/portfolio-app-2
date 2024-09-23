@@ -1,0 +1,442 @@
+/* Default Variables */
+:root {
+  --background-color: #D8DDD9;
+  --text-color: #070604;
+  --link-color: black;
+  --link-hover-color: #74c4ec;
+  --navbar-background: rgba(0, 0, 0, 0);
+  --code-box-background: #f8f8ff;
+  --code-box-text-color: #2f3542;
+  --code-box-border-color: #ced6e0;
+  --project-descriptions-bg: rgba(255, 255, 255, 0.046);
+  --project-descriptions-hover-bg: rgba(255, 255, 255, 0.2);
+  --selected-project-bg: rgba(116, 196, 236, 0.6);
+  --side-menu-bg: rgba(0, 0, 0, 0);
+  /* Add other variables as needed */
+}
+
+/* Dark Mode Variables */
+.App.dark-mode {
+  --background-color: #121212;
+  --text-color: #E0E0E0;
+  --link-color: #E0E0E0;
+  --link-hover-color: #BB86FC;
+  --navbar-background: #1E1E1E;
+  --code-box-background: #1E1E1E;
+  --code-box-text-color: #E0E0E0;
+  --code-box-border-color: #333333;
+  --project-descriptions-bg: rgba(255, 255, 255, 0.1);
+  --project-descriptions-hover-bg: #2A2A2A;
+  --selected-project-bg: #333333;
+  --side-menu-bg: #1E1E1E;
+  /* Override other variables as needed */
+}
+
+html, body {
+  scroll-behavior: smooth;
+  overflow-y: hidden;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  html, body {
+    scroll-behavior: auto;
+  }
+}
+
+.App {
+  position: relative;
+  overflow: hidden;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+.navbar {
+  position: fixed;
+  top: -100px;
+  width: 100%;
+  background-color: var(--navbar-background);
+  z-index: 1002;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  transition: top 0.3s ease;
+}
+
+.navbar.visible {
+  top: 0;
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar ul li {
+  display: inline;
+}
+
+.navbar ul li a {
+  color: var(--link-color);
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 1.0rem;
+  transition: all 0.3s ease;
+}
+
+.navbar ul li a:hover {
+  color: var(--link-hover-color);
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  color: var(--link-color);
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 65px;
+  height: 100%;
+  background-color: var(--side-menu-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding-top: 60px;
+  z-index: 1001;
+  transition: left 0.3s ease;
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-direction: column;
+}
+
+.side-menu ul li {
+  display: block;
+}
+
+.side-menu ul li a {
+  color: var(--link-color);
+  padding: 15px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.side-menu ul li a:hover {
+  color: var(--link-hover-color);
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.menu-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: transparent;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1003;
+  display: block;
+  border: none;
+}
+
+.menu-toggle img {
+  width: 30px;
+  height: 30px;
+}
+
+.section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+/* Fonts */
+
+.ibm-plex-mono-thin {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.ibm-plex-mono-extralight {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.ibm-plex-mono-light {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.ibm-plex-mono-regular {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.ibm-plex-mono-medium {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.ibm-plex-mono-semibold {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.ibm-plex-mono-bold {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.home-screen {
+  position: absolute;
+  padding: 25px;
+  padding-top: 70px;
+  text-align: left;
+  z-index: 1001;
+}
+
+.intro-text {
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+
+.ido-text {
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+
+.myName {
+  font-size: 1.5rem; 
+}
+
+.array-text {
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+.Typewriter {
+  padding: 0;
+  display:flex;
+}
+
+.inline-container {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#static_text, #static_text1 {
+  display: inline;
+  vertical-align: middle;
+}
+
+.boxed-text-container {
+  width: 50%; 
+  max-width: 380px; 
+  height: 400px;
+  padding: 20px;
+  background-color: transparent;
+  overflow: hidden;
+  margin-left: 45px; 
+  margin-top: 65px;
+  color: var(--text-color);
+}
+
+.image-container {
+  margin-top: 65px;
+}
+
+@media (max-width: 480px) {
+  .boxed-text-container {
+    width: 70%; 
+  }
+}
+
+.boxed-text-about {
+  position: relative;
+  top: 0;
+  left: 0;
+  text-align: left;
+  padding: 10px;
+  width: 100%;
+  height: auto;
+  text-align: justify;
+}
+
+.boxed-text-container,
+.image-container {
+  display: inline-block;
+  vertical-align: top;
+  width: 65%;
+  margin-right: 2%;
+  font-size: 60%;
+}
+
+.about-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.boxed-text-container {
+  flex: 1;
+}
+
+.contactinfo-text {
+  text-align: center;
+  color: var(--text-color);
+}
+
+.fade-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-section.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Projects Section */
+.projects-container {
+  display: flex;
+  justify-content: space-between;
+  padding-top:40px;
+  padding-left: 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 0px;
+  transition: all 0.4s ease;
+  height: 90vh;
+  overflow: hidden;
+}
+
+.code-snippets {
+  background-color: transparent;
+  padding: 10px;
+  padding-top: 30px;
+  font-size: 0.5rem;
+  flex: 2.9;
+  max-height: 90vh; 
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 10px; 
+  border-radius: 8px;
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+.code-snippets.slide-in {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.code-snippets.slide-out {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.code-box {
+  background-color: var(--code-box-background);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--code-box-border-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  color: var(--code-box-text-color);
+  font-size: 0.4rem !important;
+  overflow: hidden;
+}
+
+/* Project descriptions section */
+.project-descriptions {
+  background-color: transparent;
+  padding-left: 0px;
+  padding-top: 0px;
+  height: auto;
+  font-size: 0.6rem;
+  border-radius: 8px;
+  transition: flex 0.4s ease;
+  flex: 1;
+}
+
+.project-descriptions ul {
+  list-style-type: none;
+  padding-top: 8px;
+}
+
+.project-descriptions li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  color: var(--text-color);
+}
+
+.project-descriptions, 
+.project-descriptions ul, 
+.project-descriptions li {
+  touch-action: pan-y;
+}
+
+.project-descriptions li.selected {
+  color: rgb(255, 255, 255);
+  background-color: var(--selected-project-bg);
+  transform: scale(1.05);
+  font-weight: bold;
+}
+
+.project-descriptions li:hover {
+  color: var(--link-hover-color);
+  background-color: var(--project-descriptions-hover-bg);
+}
+
+/* Project image */
+.project-image {
+  width: 400px;
+  height: 350px;
+}
+
+/* Additional styles for syntax highlighting if needed */
+/* You can adjust the code font size and colors here */
+
+/* Adjust styles for other components as needed */
