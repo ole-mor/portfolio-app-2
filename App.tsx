@@ -4,9 +4,6 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-// Moved 'myarray' outside the App component to prevent it from changing on every render
-const myarray: string[] = ['Programming', 'Web Design', 'Audio+Visual Art'];
-
 interface TypewriterProps {
   text: string;
   isDeleting: boolean;
@@ -35,16 +32,13 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, isDeleting, tS, startDela
       { threshold: 0.1 }
     );
 
-    // Store ref.current in a variable to prevent ESLint warnings
-    const currentRef = typewriterRef.current;
-
-    if (currentRef) {
-      observer.observe(currentRef);
+    if (typewriterRef.current) {
+      observer.observe(typewriterRef.current);
     }
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
+      if (typewriterRef.current) {
+        observer.unobserve(typewriterRef.current);
       }
     };
   }, [startDelay, typingStarted]);
@@ -79,71 +73,42 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, isDeleting, tS, startDela
     return () => clearInterval(intervalId);
   }, [text, isDeleting, typingStarted, typingSpeed, deletingSpeed]);
 
-  return (
-    <span ref={typewriterRef} className="inline-text">
-      {text.slice(0, currentIndex)}
-    </span>
-  );
+  return <span ref={typewriterRef} className="inline-text">{text.slice(0, currentIndex)}</span>;
 };
 
 function App() {
+
   interface NavbarProps {
     showNavbar: boolean;
   }
 
-  // Moved isDarkMode state above to prevent undefined usage
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
   const Navbar: React.FC<NavbarProps> = ({ showNavbar }) => (
     <nav className={`navbar ${showNavbar ? 'visible' : ''}`}>
       <ul className="bebas-neue-regular">
+        <li><a href="#section1" aria-label="Home">Home</a></li>
+        <li><a href="#section2" aria-label="About">About</a></li>
+        <li><a href="#section3" aria-label="Projects">Projects</a></li>
+        <li><a href="https://drive.google.com/file/d/1oZo5Ci-2AQnpfJNAx51p2nMq__H6K5Gj/view?usp=share_link" aria-label="Resumé">Resumé</a></li>
         <li>
-          <a href="#section1" aria-label="Home">
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="#section2" aria-label="About">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="#section3" aria-label="Projects">
-            Projects
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://drive.google.com/file/d/1oZo5Ci-2AQnpfJNAx51p2nMq__H6K5Gj/view?usp=share_link"
-            aria-label="Resumé"
-          >
-            Resumé
-          </a>
-        </li>
-        <li>
-          <button
-            onClick={(e) => {
-              e.preventDefault(); // Prevent default behavior
-              setIsDarkMode((prevMode) => !prevMode); // Toggle dark mode
-            }}
-            className="dark-mode-toggle"
-            aria-label="Toggle Dark Mode"
-            style={{ WebkitTapHighlightColor: 'transparent' }} // Disable mobile tap highlight
-          >
-            {isDarkMode ? (
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/icons/moon.png`}
-                alt="moon"
-                className="mymoon"
-              />
-            ) : (
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/icons/sun.png`}
-                alt="sun"
-                className="mysun"
-              />
-            )}
-          </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default behavior
+            setIsDarkMode((prevMode) => !prevMode); // Toggle dark mode
+          }}
+          onTouchStart={(e) => {
+            e.preventDefault(); // Prevent default behavior on touch
+            setIsDarkMode((prevMode) => !prevMode); // Toggle dark mode
+          }}
+          className="dark-mode-toggle"
+          aria-label="Toggle Dark Mode"
+          style={{ WebkitTapHighlightColor: 'transparent' }}  // Disable mobile tap highlight
+        >
+          {isDarkMode ? (
+            <img src={`${process.env.PUBLIC_URL}/assets/icons/moon.png`} alt="moon" className="mymoon" />
+          ) : (
+            <img src={`${process.env.PUBLIC_URL}/assets/icons/sun.png`} alt="sun" className="mysun" />
+          )}
+        </button>
         </li>
       </ul>
     </nav>
@@ -156,24 +121,27 @@ function App() {
   const SideMenu: React.FC<SideMenuProps> = ({ isOpen }) => (
     <div className={`side-menu ${isOpen ? 'open' : ''}`}>
       <ul className="bebas-neue-regular">
-        <li>
-          <a href="#section1" aria-label="Home">
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="#section2" aria-label="About">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="#section3" aria-label="Projects">
-            Projects
-          </a>
-        </li>
+        <li><a href="#section1" aria-label="Home">Home</a></li>
+        <li><a href="#section2" aria-label="About">About</a></li>
+        <li><a href="#section3" aria-label="Projects">Projects</a></li>
       </ul>
     </div>
   );
+
+  // MenuToggle remains commented out as per your original code
+  // interface MenuToggleProps {
+  //   isOpen: boolean;
+  //   onClick: () => void;
+  // }
+  //
+  // const MenuToggle: React.FC<MenuToggleProps> = ({ isOpen, onClick }) => (
+  //   <button className="menu-toggle" onClick={onClick} aria-label={isOpen ? 'Close Menu' : 'Open Menu'}>
+  //     <img
+  //       src={isOpen ? '/assets/icons/close_sidebar.png' : '/assets/icons/open_sidebar.png'}
+  //       alt={isOpen ? 'Close Menu' : 'Open Menu'}
+  //     />
+  //   </button>
+  // );
 
   function useOnScreen(ref: React.RefObject<HTMLElement>, threshold: number = 0.5) {
     const [isIntersecting, setIntersecting] = useState(false);
@@ -184,15 +152,12 @@ function App() {
         { threshold }
       );
 
-      // Store ref.current in a variable to prevent ESLint warnings
-      const currentRef = ref.current;
-
-      if (currentRef) {
-        observer.observe(currentRef);
+      if (ref.current) {
+        observer.observe(ref.current);
       }
 
       return () => {
-        if (currentRef) observer.unobserve(currentRef);
+        if (ref.current) observer.unobserve(ref.current);
       };
     }, [ref, threshold]);
 
@@ -214,10 +179,7 @@ function App() {
           const sectionTop = section.offsetTop;
           const sectionBottom = sectionTop + section.offsetHeight;
 
-          if (
-            currentScroll >= sectionTop - viewportHeight / 2 &&
-            currentScroll < sectionBottom - viewportHeight / 2
-          ) {
+          if (currentScroll >= sectionTop - viewportHeight / 2 && currentScroll < sectionBottom - viewportHeight / 2) {
             if (index === 0) {
               // We are in section1
               setShowNavbar(true);
@@ -242,13 +204,12 @@ function App() {
   // Project state and data
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [isProjectChanging, setIsProjectChanging] = useState(false);
-
   // Updated project data with two code snippets per project
   const projects = [
     {
       id: 'proj1',
       name: 'React web-app',
-      icon: '/assets/images/react-logo.png',
+      icon: '/assets/icons/react-logo.png',
       codeSnippets: [
 {       code: ` // Navbar.tsx //
 import React from 'react';
@@ -666,7 +627,9 @@ language: "rust"
     }, 400);
   };
 
-  const selectedProjectData = projects.find((project) => project.id === selectedProject);
+  const selectedProjectData = projects.find(
+    (project) => project.id === selectedProject
+  );
 
   const selectedCodeSnippets = selectedProjectData ? selectedProjectData.codeSnippets : [];
 
@@ -680,6 +643,7 @@ language: "rust"
   const isProjectsVisible = useOnScreen(projectsRef, 0.5);
   const isContactVisible = useOnScreen(contactRef, 0.5);
 
+  const myarray: string[] = ['Programming', 'Web Design', 'Audio+Visual Art'];
   const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState<boolean>(false);
@@ -715,7 +679,7 @@ language: "rust"
     }
 
     return () => clearTimeout(timeoutId);
-  }, [currentTextIndex, isDeleting, isPaused]);
+  }, [currentTextIndex, isDeleting, isPaused, myarray]);
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -816,15 +780,10 @@ language: "rust"
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-    // Added missing dependencies to prevent ESLint warnings
-  }, [
-    handleScroll,
-    handleTouchStart,
-    handleTouchMove,
-    handleTouchEnd,
-    touchStart,
-    touchEnd,
-  ]);
+  }, [touchStart, touchEnd]);
+
+  // Dark Mode Toggle State
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Choose syntax highlighting theme based on dark mode
   const syntaxTheme = isDarkMode ? vs2015 : docco;
@@ -832,80 +791,43 @@ language: "rust"
   return (
     <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
       <style>
-        @import
-        url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap');
       </style>
       <section className="section" id="section1">
         {showNavbar && <Navbar showNavbar={true} />}
         <div className="home-screen">
           <div className="intro-text">
-            <span className="bebas-neue-regular">
-              Hi, my name is <u className="myName">Ole Mathias Ornæs</u>
-            </span>
+            <a className="bebas-neue-regular">Hi, my name is <u className="myName">Ole Mathias Ornæs</u></a>
           </div>
           <div className="array-text">
             <div id="typewriter_text" className="Typewriter">
-              <span className="bebas-neue-regular">
-                I do:{' '}
-                <Typewriter
-                  text={myarray[currentTextIndex]}
-                  isDeleting={isDeleting}
-                  tS={100}
-                  startDelay={0}
-                />
-              </span>
+              <a className="bebas-neue-regular">
+                I do: <a href=""> </a>
+                <Typewriter text={myarray[currentTextIndex]} isDeleting={isDeleting} tS={100} startDelay={0} />
+              </a>
             </div>
           </div>
           <div className="frontpage-art">
-            <div className="cubepng">
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/images/cube.png`}
-                alt="cube"
-                className="cube"
-              />
-            </div>
+            <div className="cubepng"><img src={`${process.env.PUBLIC_URL}/assets/images/cube.png`} alt="cube"  className="cube"/></div>
+
           </div>
         </div>
       </section>
 
-      <section
-        className={`section fade-section ${isAboutVisible ? 'in-view' : ''}`}
-        id="section2"
-        ref={aboutRef}
-      >
+      <section className={`section fade-section ${isAboutVisible ? 'in-view' : ''}`} id="section2" ref={aboutRef}>
         {showSideMenu && <SideMenu isOpen={true} />}
         <div className="about-container">
           <div className="boxed-text-container">
             <div className="boxed-text-about">
               {typewriterTriggered && (
                 <div className="ibm-plex-mono-regular">
-                  <Typewriter
-                    text="I am a Master Student at Kristiania College in "
-                    isDeleting={false}
-                    tS={20}
-                    startDelay={0}
-                  />
+                  <Typewriter text="I am a Master Student at Kristiania College in " isDeleting={false} tS={20} startDelay={0} />
                   <a href="https://earth.google.com/web/search/oslo">
-                    <Typewriter
-                      text="Oslo, Norway"
-                      isDeleting={false}
-                      tS={20}
-                      startDelay={1000}
-                    />
+                    <Typewriter text="Oslo, Norway" isDeleting={false} tS={20} startDelay={1000} />
                   </a>
-                  <Typewriter
-                    text=", specializing in HCI, working on UI/UX for web and Embedded systems architecture."
-                    isDeleting={false}
-                    tS={20}
-                    startDelay={1200}
-                  />
+                  <Typewriter text=", specializing in HCI, working on UI/UX for web and Embedded systems architecture." isDeleting={false} tS={20} startDelay={1200} />
                   <p></p>
-                  <Typewriter
-                    text="I enjoy taking walks, and love spending time in nature, but my ideal environment is where I can enjoy building my projects, and being on the cutting edge of digital media."
-                    isDeleting={false}
-                    tS={15}
-                    startDelay={3000}
-                  />
+                  <Typewriter text="I enjoy taking walks, and love spending time in nature, but my ideal environment is where I can enjoy building my projects, and being on the cutting edge of digital media." isDeleting={false} tS={15} startDelay={3000} />
                 </div>
               )}
             </div>
@@ -913,11 +835,7 @@ language: "rust"
         </div>
       </section>
 
-      <div
-        className={`section fade-section ${isProjectsVisible ? 'in-view' : ''}`}
-        id="section3"
-        ref={projectsRef}
-      >
+      <div className={`section fade-section ${isProjectsVisible ? 'in-view' : ''}`} id="section3" ref={projectsRef}>
         {showSideMenu && <SideMenu isOpen={true} />}
         <div className="projects-section">
           <div className="projects-container">
@@ -925,11 +843,7 @@ language: "rust"
               <div className="code-container">
                 {selectedCodeSnippets.map((snippet, index) => (
                   <div className="code-box" key={index}>
-                    <SyntaxHighlighter
-                      language={snippet.language}
-                      style={syntaxTheme}
-                      showLineNumbers={false}
-                    >
+                    <SyntaxHighlighter language={snippet.language} style={syntaxTheme} showLineNumbers={false}>
                       {snippet.code}
                     </SyntaxHighlighter>
                   </div>
@@ -955,31 +869,18 @@ language: "rust"
             </div>
 
             <div className="project-image">
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/images/part1.gif`}
-                alt="Project visual"
-              />
+              <img src={`${process.env.PUBLIC_URL}/assets/images/part1.gif`} alt="Project visual" />
             </div>
           </div>
         </div>
       </div>
 
-      <section
-        className={`section fade-section ${isContactVisible ? 'in-view' : ''}`}
-        id="section4"
-        ref={contactRef}
-      >
+      <section className={`section fade-section ${isContactVisible ? 'in-view' : ''}`} id="section4" ref={contactRef}>
         {showSideMenu && <SideMenu isOpen={true} />}
         <div className="contactinfo-text">
-          <div>
-            <p>Contact info:</p>
-          </div>
-          <div>
-            <a href="mailto:ole.ornas@gmail.com">ole.ornas@gmail.com</a>
-          </div>
-          <div>
-            <a href="resumélink">Resumé</a>
-          </div>
+          <div><p>Contact info:</p></div>
+          <div><a href="mailto:ole.ornas@gmail.com">ole.ornas@gmail.com</a></div>
+          <div><a href="resumélink">Resumé</a></div>
         </div>
       </section>
     </div>
