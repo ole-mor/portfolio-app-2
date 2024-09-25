@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import './App.css';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -717,61 +717,76 @@ language: "rust"
     return () => clearTimeout(timeoutId);
   }, [currentTextIndex, isDeleting, isPaused]);
 
-  const scrollToSection = (sectionId: string) => {
+  // Wrapped scrollToSection with useCallback
+  const scrollToSection = useCallback((sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
-  const handleScroll = (event: WheelEvent) => {
-    const sections = document.querySelectorAll('.section');
-    let currentIndex = -1;
-
-    sections.forEach((section, index) => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= 0 && rect.bottom > 0) {
-        currentIndex = index;
-      }
-    });
-
-    if (event.deltaY > 0 && currentIndex < sections.length - 1) {
-      const nextSection = sections[currentIndex + 1];
-      scrollToSection(nextSection.id);
-    } else if (event.deltaY < 0 && currentIndex > 0) {
-      const prevSection = sections[currentIndex - 1];
-      scrollToSection(prevSection.id);
-    }
-  };
-
-  const [touchStart, setTouchStart] = useState<number>(0);
-  const [touchEnd, setTouchEnd] = useState<number>(0);
-
-  const isInteractiveElement = (element: HTMLElement): boolean => {
+  // Wrapped isInteractiveElement with useCallback
+  const isInteractiveElement = useCallback((element: HTMLElement): boolean => {
     return (
       element.tagName === 'A' ||
       element.tagName === 'BUTTON' ||
       element.closest('.project-descriptions') !== null
     );
-  };
+  }, []);
 
-  const handleTouchStart = (event: TouchEvent) => {
-    const target = event.target as HTMLElement;
-    if (isInteractiveElement(target)) {
-      return;
-    }
-    setTouchStart(event.touches[0].clientY);
-  };
+  // Wrapped handleScroll with useCallback
+  const handleScroll = useCallback(
+    (event: WheelEvent) => {
+      const sections = document.querySelectorAll('.section');
+      let currentIndex = -1;
 
-  const handleTouchMove = (event: TouchEvent) => {
-    const target = event.target as HTMLElement;
-    if (isInteractiveElement(target)) {
-      return;
-    }
-    setTouchEnd(event.touches[0].clientY);
-  };
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 0 && rect.bottom > 0) {
+          currentIndex = index;
+        }
+      });
 
-  const handleTouchEnd = () => {
+      if (event.deltaY > 0 && currentIndex < sections.length - 1) {
+        const nextSection = sections[currentIndex + 1];
+        scrollToSection(nextSection.id);
+      } else if (event.deltaY < 0 && currentIndex > 0) {
+        const prevSection = sections[currentIndex - 1];
+        scrollToSection(prevSection.id);
+      }
+    },
+    [scrollToSection]
+  );
+
+  const [touchStart, setTouchStart] = useState<number>(0);
+  const [touchEnd, setTouchEnd] = useState<number>(0);
+
+  // Wrapped handleTouchStart with useCallback
+  const handleTouchStart = useCallback(
+    (event: TouchEvent) => {
+      const target = event.target as HTMLElement;
+      if (isInteractiveElement(target)) {
+        return;
+      }
+      setTouchStart(event.touches[0].clientY);
+    },
+    [isInteractiveElement]
+  );
+
+  // Wrapped handleTouchMove with useCallback
+  const handleTouchMove = useCallback(
+    (event: TouchEvent) => {
+      const target = event.target as HTMLElement;
+      if (isInteractiveElement(target)) {
+        return;
+      }
+      setTouchEnd(event.touches[0].clientY);
+    },
+    [isInteractiveElement]
+  );
+
+  // Wrapped handleTouchEnd with useCallback
+  const handleTouchEnd = useCallback(() => {
     if (touchStart === 0 || touchEnd === 0) {
       return;
     }
@@ -802,7 +817,7 @@ language: "rust"
     }
     setTouchStart(0);
     setTouchEnd(0);
-  };
+  }, [touchStart, touchEnd, scrollToSection]);
 
   useEffect(() => {
     window.addEventListener('wheel', handleScroll);
@@ -816,15 +831,7 @@ language: "rust"
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-    // Added missing dependencies to prevent ESLint warnings
-  }, [
-    handleScroll,
-    handleTouchStart,
-    handleTouchMove,
-    handleTouchEnd,
-    touchStart,
-    touchEnd,
-  ]);
+  }, [handleScroll, handleTouchStart, handleTouchMove, handleTouchEnd]);
 
   // Choose syntax highlighting theme based on dark mode
   const syntaxTheme = isDarkMode ? vs2015 : docco;
