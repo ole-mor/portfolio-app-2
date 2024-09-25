@@ -90,25 +90,21 @@ function App() {
         <li><a href="#section3" aria-label="Projects">Projects</a></li>
         <li><a href="https://drive.google.com/file/d/1oZo5Ci-2AQnpfJNAx51p2nMq__H6K5Gj/view?usp=share_link" aria-label="Resumé">Resumé</a></li>
         <li>
-        <button
-          onClick={(e) => {
-            e.preventDefault(); // Prevent default behavior
-            setIsDarkMode((prevMode) => !prevMode); // Toggle dark mode
-          }}
-          onTouchStart={(e) => {
-            e.preventDefault(); // Prevent default behavior on touch
-            setIsDarkMode((prevMode) => !prevMode); // Toggle dark mode
-          }}
-          className="dark-mode-toggle"
-          aria-label="Toggle Dark Mode"
-          style={{ WebkitTapHighlightColor: 'transparent' }}  // Disable mobile tap highlight
-        >
-          {isDarkMode ? (
-            <img src={`${process.env.PUBLIC_URL}/assets/icons/moon.png`} alt="moon" className="mymoon" />
-          ) : (
-            <img src={`${process.env.PUBLIC_URL}/assets/icons/sun.png`} alt="sun" className="mysun" />
-          )}
-        </button>
+          <button
+            onClick={(e) => {
+              e.preventDefault(); // Prevent any default behavior
+              setIsDarkMode(!isDarkMode);
+            }}
+            onTouchStart={(e) => e.preventDefault()}  // Prevent touchstart flickering
+            className="dark-mode-toggle"
+            aria-label="Toggle Dark Mode"
+          >
+            {isDarkMode ? (
+              <img src={`${process.env.PUBLIC_URL}/assets/icons/moon.png`} alt="moon" className="mymoon" />
+            ) : (
+              <img src={`${process.env.PUBLIC_URL}/assets/icons/sun.png`} alt="sun" className="mysun" />
+            )}
+          </button>
         </li>
       </ul>
     </nav>
@@ -797,19 +793,14 @@ language: "rust"
         {showNavbar && <Navbar showNavbar={true} />}
         <div className="home-screen">
           <div className="intro-text">
-            <a className="bebas-neue-regular">Hi, my name is <u className="myName">Ole Mathias Ornæs</u></a>
+            <a className="bebas-neue-regular">Hi, my name is <u className="myName">Ole Mathias Ornæs</u>. I do</a>
           </div>
           <div className="array-text">
             <div id="typewriter_text" className="Typewriter">
               <a className="bebas-neue-regular">
-                I do: <a href=""> </a>
                 <Typewriter text={myarray[currentTextIndex]} isDeleting={isDeleting} tS={100} startDelay={0} />
               </a>
             </div>
-          </div>
-          <div className="frontpage-art">
-            <div className="cubepng"><img src={`${process.env.PUBLIC_URL}/assets/images/cube.png`} alt="cube"  className="cube"/></div>
-
           </div>
         </div>
       </section>

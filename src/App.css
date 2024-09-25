@@ -54,12 +54,16 @@ html, body {
   position: fixed;
   top: -100px;
   width: 100%;
-  background-color: var(--navbar-background);
+  background-color: transparent;
   z-index: 1002;
   display: flex;
   justify-content: center;
   padding: 10px 0;
   transition: top 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .navbar.visible {
@@ -68,19 +72,27 @@ html, body {
 
 .navbar ul {
   list-style: none;
-  padding: 0;
+  padding-top: 3px;
   margin: 0;
   display: flex;
   gap: 20px;
 }
 
+@media (max-width: 480px) {
+  .navbar ul {
+    gap: 8px; 
+  }
+}
+
 .navbar ul li {
   display: inline;
+  color: var(--link-color);
+  padding: 10px 15px;
+  transition: all 0.3s ease;
 }
 
 .navbar ul li a {
   color: var(--link-color);
-  padding: 10px 15px;
   text-decoration: none;
   font-size: 1.0rem;
   transition: all 0.3s ease;
@@ -100,7 +112,7 @@ html, body {
   color: var(--link-color);
   font-size: 1rem;
   cursor: pointer;
-  margin-left: 20px;
+  padding: 0px;
 }
 
 .side-menu {
@@ -116,6 +128,11 @@ html, body {
   padding-top: 60px;
   z-index: 1001;
   transition: left 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
 }
 
 .side-menu.open {
@@ -232,6 +249,10 @@ html, body {
   padding-top: 70px;
   text-align: left;
   z-index: 1001;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .intro-text {
@@ -315,6 +336,10 @@ html, body {
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .boxed-text-container {
@@ -339,28 +364,33 @@ html, body {
 
 /* Projects Section */
 .projects-container {
+  position: relative;
   display: flex;
   justify-content: space-between;
   padding-top:40px;
-  padding-left: 100px;
+  padding-left: 70px;
   max-width: 1200px;
   margin: 0 auto;
   gap: 0px;
   transition: all 0.4s ease;
   height: 90vh;
   overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .code-snippets {
-  background-color: transparent;
-  padding: 10px;
+  position: relative;
+  z-index: 2301;
+  padding: 30px;
   padding-top: 30px;
-  font-size: 0.5rem;
-  flex: 2.9;
+  width: 370px;
   max-height: 90vh; 
   overflow: hidden;
   display: grid;
-  grid-template-rows: auto auto;
+  /* grid-template-rows: auto auto; */
   gap: 10px; 
   border-radius: 8px;
   transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
@@ -378,7 +408,7 @@ html, body {
 
 .code-box {
   background-color: var(--code-box-background);
-  padding: 10px;
+  padding: 5px;
   margin-bottom: 10px;
   border-radius: 8px;
   border: 1px solid var(--code-box-border-color);
@@ -388,24 +418,43 @@ html, body {
   overflow: hidden;
 }
 
+@media (max-width: 400px) {
+  .code-box {
+    font-size: 0.3rem !important; 
+  }
+  .code-snippets {
+    padding-left: 0px;
+    width: 280px;
+  }
+}
+
 /* Project descriptions section */
 .project-descriptions {
-  background-color: transparent;
-  padding-left: 0px;
-  padding-top: 0px;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.0);
+  padding-left: 400px;
+  padding-top: 13px;
   height: auto;
   font-size: 0.6rem;
   border-radius: 8px;
   transition: flex 0.4s ease;
-  flex: 1;
+  z-index: 2302;
+}
+
+@media (max-width: 640px) {
+  .project-descriptions {
+    padding-left: 60%
+  }
 }
 
 .project-descriptions ul {
   list-style-type: none;
+  background-color: transparent;
   padding-top: 8px;
 }
 
 .project-descriptions li {
+  background-color: transparent;
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
@@ -424,6 +473,10 @@ html, body {
   transform: scale(1.05);
   font-weight: bold;
 }
+.project-icon {
+  width: 30px;
+  height: auto;
+}
 
 .project-descriptions li:hover {
   color: var(--link-hover-color);
@@ -432,8 +485,35 @@ html, body {
 
 /* Project image */
 .project-image {
-  width: 400px;
-  height: 350px;
+  width: 30%;
+  height: 25%;
+}
+
+@media (max-width: 640px) {
+  .project-image {
+    width: 0;
+    height: 0; 
+  }
+}
+
+.dark-mode-toggle {
+  fill: currentColor; /* Inherit color from parent */
+}
+
+.mymoon {
+  width: 20px;
+  height: 20px;
+}
+.mysun {
+  width: 20px;
+  height: 20px;
+}
+
+.cube {
+  width: 190px;
+  height:190px;
+  padding-left: 600px;
+  padding-top: 50px;
 }
 
 /* Additional styles for syntax highlighting if needed */
