@@ -5,7 +5,7 @@ import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 // Moved 'myarray' outside the App component to prevent it from changing on every render
-const myarray: string[] = ['Programming', 'Web Design', 'Audio+Visual Art'];
+const myarray: string[] = ['Programming', 'Web Design', 'Digital art'];
 
 interface TypewriterProps {
   text: string;
@@ -248,7 +248,7 @@ function App() {
     {
       id: 'proj1',
       name: 'React web-app',
-      icon: '/assets/images/react-logo.png',
+      icon: '/assets/icons/react-logo.png',
       codeSnippets: [
 {       code: ` // Navbar.tsx //
 import React from 'react';
@@ -847,13 +847,12 @@ language: "rust"
         <div className="home-screen">
           <div className="intro-text">
             <span className="bebas-neue-regular">
-              Hi, my name is <u className="myName">Ole Mathias Ornæs</u>
             </span>
           </div>
           <div className="array-text">
             <div id="typewriter_text" className="Typewriter">
               <span className="bebas-neue-regular">
-                I do:{' '}
+                {' '}
                 <Typewriter
                   text={myarray[currentTextIndex]}
                   isDeleting={isDeleting}
@@ -869,6 +868,13 @@ language: "rust"
                 src={`${process.env.PUBLIC_URL}/assets/images/cube.png`}
                 alt="cube"
                 className="cube"
+              />
+            </div>
+            <div className="circlepng">
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/images/circle.png`}
+                alt="circle"
+                className="circle"
               />
             </div>
           </div>
@@ -887,7 +893,7 @@ language: "rust"
               {typewriterTriggered && (
                 <div className="ibm-plex-mono-regular">
                   <Typewriter
-                    text="I am a Master Student at Kristiania College in "
+                    text="Hi, my name is Ole Mathias Ornæs. I am a Master Student at Kristiania College in "
                     isDeleting={false}
                     tS={20}
                     startDelay={0}
@@ -897,21 +903,21 @@ language: "rust"
                       text="Oslo, Norway"
                       isDeleting={false}
                       tS={20}
-                      startDelay={1000}
+                      startDelay={1600}
                     />
                   </a>
                   <Typewriter
                     text=", specializing in HCI, working on UI/UX for web and Embedded systems architecture."
                     isDeleting={false}
                     tS={20}
-                    startDelay={1200}
+                    startDelay={1800}
                   />
                   <p></p>
                   <Typewriter
                     text="I enjoy taking walks, and love spending time in nature, but my ideal environment is where I can enjoy building my projects, and being on the cutting edge of digital media."
                     isDeleting={false}
                     tS={15}
-                    startDelay={3000}
+                    startDelay={4000}
                   />
                 </div>
               )}
@@ -955,7 +961,7 @@ language: "rust"
                     onKeyPress={(e) => e.key === 'Enter' && handleProjectClick(project.id)}
                     aria-label={`View ${project.name}`}
                   >
-                    <img src={project.icon} alt={project.name} className="project-icon" />
+                    <img src={`${process.env.PUBLIC_URL}${project.icon}`} alt={project.name} className="project-icon" />
                   </li>
                 ))}
               </ul>
@@ -981,7 +987,14 @@ language: "rust"
           <div>
             <p>Contact info:</p>
           </div>
-          <div>
+          <div className="email">
+            <div className="profilepic">
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/images/profile.png`}
+                alt="profile"
+                className="profile"
+              />
+            </div>
             <a href="mailto:ole.ornas@gmail.com">ole.ornas@gmail.com</a>
           </div>
           <div>

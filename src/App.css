@@ -1,5 +1,5 @@
 /* Default Variables */
-:root {
+:root{
   --background-color: #D8DDD9;
   --text-color: #070604;
   --link-color: black;
@@ -244,25 +244,26 @@ html, body {
 }
 
 .home-screen {
-  position: absolute;
-  padding: 25px;
-  padding-top: 70px;
-  text-align: left;
-  z-index: 1001;
+  position: relative;
+  padding: 0px;
+  height: 100vh;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .intro-text {
-  font-size: 1.5rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
   color: var(--text-color);
-}
-
-.ido-text {
-  font-size: 1.5rem;
-  color: var(--text-color);
+  text-align: center; 
+  width: max-content;
 }
 
 .myName {
@@ -270,13 +271,29 @@ html, body {
 }
 
 .array-text {
-  font-size: 2rem;
+  position: absolute;
+  z-index: 7003;
+  font-size: 5rem;
   color: var(--text-color);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 7002;
+  width: max-content;
 }
 
 .Typewriter {
-  padding: 0;
+  position: absolute;
   display:flex;
+  width: max-content;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: max-content;
+  padding-top: 60px;
+  z-index: 7002;
 }
 
 .inline-container {
@@ -328,7 +345,7 @@ html, body {
   vertical-align: top;
   width: 65%;
   margin-right: 2%;
-  font-size: 60%;
+  font-size: 100%;
 }
 
 .about-container {
@@ -347,8 +364,13 @@ html, body {
 }
 
 .contactinfo-text {
+  position: absolute;
   text-align: center;
   color: var(--text-color);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
 }
 
 .fade-section {
@@ -510,12 +532,61 @@ html, body {
 }
 
 .cube {
+  position: absolute;
+  left: 20%;
+  top: 20%;
+  z-index: 7001;
   width: 190px;
   height:190px;
-  padding-left: 600px;
-  padding-top: 50px;
+  animation: cubeanim 5s infinite;
+  transform: rotate(5deg);
 }
 
+@keyframes cubeanim {
+  50% {
+    transform: translate(0px , -5px);       
+  }
+}
+
+.circle {
+  position: absolute;
+  top: 35%;
+  left: 65%;
+  z-index: 7001;
+  width: 190px;
+  height:190px;
+  animation: circleanim 5s infinite;
+}
+
+@media (max-width: 640px) {
+  .circle {
+    left: 60%;
+  }
+  .cube {
+    left: 10%;
+  }
+}
+
+@keyframes circleanim {
+  50% {
+    transform: translate(0px , 20px) rotate(-5deg);       
+  }
+}
+
+.profile{
+  display: flex;
+  width: 30px;
+  height: 30px;
+}
+
+.profilepic {
+  padding-left: 5px;
+
+}
+
+.email {
+  display: inline-flex;
+}
 /* Additional styles for syntax highlighting if needed */
 /* You can adjust the code font size and colors here */
 
