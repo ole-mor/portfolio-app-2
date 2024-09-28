@@ -877,6 +877,14 @@ language: "rust"
                 className="circle"
               />
             </div>
+            <div className="trianglepyramidpng">
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/images/trianglepyramid.png`}
+                alt="trianglepyramid"
+                className="trianglepyramid"
+              />
+            </div>
+
           </div>
         </div>
       </section>
@@ -999,6 +1007,15 @@ language: "rust"
           </div>
           <div>
             <a href="resumélink">Resumé</a>
+          </div>
+        </div>
+        <div>
+          <div className="worldartpng">
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/images/worldart.png`}
+              alt="worldart"
+              className="worldart"
+            />
           </div>
         </div>
       </section>

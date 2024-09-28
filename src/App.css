@@ -307,60 +307,39 @@ html, body {
 }
 
 .boxed-text-container {
-  width: 50%; 
-  max-width: 380px; 
-  height: 400px;
-  padding: 20px;
+  width: 300px;
   background-color: transparent;
   overflow: hidden;
-  margin-left: 45px; 
-  margin-top: 65px;
   color: var(--text-color);
 }
 
-.image-container {
-  margin-top: 65px;
-}
-
-@media (max-width: 480px) {
+@media (max-width: 450px) {
   .boxed-text-container {
-    width: 70%; 
+    width: 65vw;
   }
 }
 
 .boxed-text-about {
   position: relative;
-  top: 0;
-  left: 0;
-  text-align: left;
-  padding: 10px;
-  width: 100%;
   height: auto;
   text-align: justify;
+  font-size: 0.8rem;
 }
 
-.boxed-text-container,
-.image-container {
-  display: inline-block;
-  vertical-align: top;
-  width: 65%;
-  margin-right: 2%;
-  font-size: 100%;
-}
 
 .about-container {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
-  gap: 20px;
   user-select: none;
+  vertical-align: center;
+  text-align: center;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-}
-
-.boxed-text-container {
-  flex: 1;
 }
 
 .contactinfo-text {
@@ -558,20 +537,72 @@ html, body {
   animation: circleanim 5s infinite;
 }
 
-@media (max-width: 640px) {
-  .circle {
-    left: 60%;
-  }
-  .cube {
-    left: 10%;
-  }
-}
-
 @keyframes circleanim {
   50% {
     transform: translate(0px , 20px) rotate(-5deg);       
   }
 }
+
+.trianglepyramid{
+  position: absolute;
+  left: 20%;
+  top: 60%;
+  z-index: 7001;
+  width: 190px;
+  height:190px;
+  animation: trianglepyramidanim 8s infinite;
+  transform: rotate(-5deg);
+}
+
+@keyframes trianglepyramidanim {
+  50% {
+    transform: translate(10px , -5px);       
+  }
+}
+
+@media (max-width: 640px) {
+  .circle {
+    left: 50%;
+  }
+  .cube {
+    left: 10%;
+  }
+  .trianglepyramid {
+    left: 20%;
+  }
+}
+
+.worldart{
+  position: absolute;
+  align-content: bottom;
+  left: 0%;
+  bottom: -50%;
+  z-index: 7001;
+  width: 100vw;
+  height:80vw;
+}
+
+@media (max-width: 640px) {
+  .worldart {
+      bottom: 0%;
+  }
+}
+@media (max-width: 1040px) {
+  .worldart {
+      bottom: -10%;
+  }
+}
+@media (max-width: 1040px) {
+  .worldart {
+      bottom: -30%;
+  }
+}
+@media (max-width: 640px) {
+  .worldart {
+      bottom: 0%;
+  }
+}
+
 
 .profile{
   display: flex;
