@@ -1,0 +1,778 @@
+/* Default Variables */
+:root{
+  --background-color: #D8DDD9;
+  --text-color: #070604;
+  --link-color: black;
+  --link-hover-color: #74c4ec;
+  --navbar-background: rgba(0, 0, 0, 0);
+  --code-box-background: #f8f8ff;
+  --code-box-text-color: #2f3542;
+  --code-box-border-color: #ced6e0;
+  --project-descriptions-bg: rgba(255, 255, 255, 0.046);
+  --project-descriptions-hover-bg: rgba(255, 255, 255, 0.2);
+  --selected-project-bg: rgba(116, 196, 236, 0.6);
+  --side-menu-bg: rgba(0, 0, 0, 0);
+  /* Add other variables as needed */
+}
+
+/* Dark Mode Variables */
+.App.dark-mode {
+  --background-color: #121212;
+  --text-color: #E0E0E0;
+  --link-color: #E0E0E0;
+  --link-hover-color: #BB86FC;
+  --navbar-background: #1E1E1E;
+  --code-box-background: #1E1E1E;
+  --code-box-text-color: #E0E0E0;
+  --code-box-border-color: #333333;
+  --project-descriptions-bg: rgba(255, 255, 255, 0.1);
+  --project-descriptions-hover-bg: #2A2A2A;
+  --selected-project-bg: #333333;
+  --side-menu-bg: transparent;
+  /* Override other variables as needed */
+}
+
+html, body {
+  scroll-behavior: smooth;
+  overflow-y: hidden;
+}
+
+body, body * {
+  cursor: none !important;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  html, body {
+    scroll-behavior: auto;
+  }
+}
+
+.App {
+  position: relative;
+  overflow: hidden;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+.navbar {
+  position: fixed;
+  top: -100px;
+  width: 100%;
+  background-color: transparent;
+  z-index: 1002;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  transition: top 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.navbar.visible {
+  top: 0;
+}
+
+.navbar ul {
+  list-style: none;
+  padding-top: 3px;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 480px) {
+  .navbar ul {
+    gap: 8px; 
+  }
+}
+
+.navbar ul li {
+  display: inline;
+  color: var(--link-color);
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+
+.navbar ul li a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 1.0rem;
+  transition: all 0.3s ease;
+}
+
+.navbar ul li a:hover {
+  color: var(--link-hover-color);
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  color: var(--link-color);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0px;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 65px;
+  height: 100%;
+  background-color: var(--side-menu-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding-top: 60px;
+  z-index: 1001;
+  transition: left 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-direction: column;
+}
+
+.side-menu ul li {
+  display: block;
+}
+
+.side-menu ul li a {
+  color: var(--link-color);
+  padding: 15px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.side-menu ul li a:hover {
+  color: var(--link-hover-color);
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 2.0);
+  border-radius: 5px;
+}
+
+.menu-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: transparent;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1003;
+  display: block;
+  border: none;
+}
+
+.menu-toggle img {
+  width: 30px;
+  height: 30px;
+}
+
+.section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+/* Fonts */
+
+.ibm-plex-mono-thin {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.ibm-plex-mono-extralight {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.ibm-plex-mono-light {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.ibm-plex-mono-regular {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.ibm-plex-mono-medium {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.ibm-plex-mono-semibold {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.ibm-plex-mono-bold {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.home-screen {
+  position: relative;
+  padding: 0px;
+  height: 100vh;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.intro-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: var(--text-color);
+  text-align: center; 
+  width: max-content;
+}
+
+.myName {
+  font-size: 1.5rem; 
+}
+
+.array-text {
+  position: absolute;
+  z-index: 7003;
+  font-size: 5rem;
+  color: var(--text-color);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 7002;
+  width: max-content;
+}
+
+.Typewriter {
+  position: absolute;
+  display:flex;
+  width: max-content;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: max-content;
+  padding-top: 60px;
+  z-index: 7002;
+}
+
+.inline-container {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#static_text, #static_text1 {
+  display: inline;
+  vertical-align: middle;
+}
+
+.boxed-text-container {
+  width: 300px;
+  background-color: transparent;
+  overflow: hidden;
+  color: var(--text-color);
+}
+
+@media (max-width: 450px) {
+  .boxed-text-container {
+    width: 65vw;
+  }
+}
+
+.boxed-text-about {
+  position: relative;
+  height: auto;
+  text-align: justify;
+  font-size: 0.8rem;
+}
+
+
+.about-container {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: flex-start;
+  user-select: none;
+  vertical-align: center;
+  text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.contactinfo-text {
+  position: absolute;
+  text-align: center;
+  color: var(--text-color);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.fade-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-section.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.projects-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Projects Section */
+.projects-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  max-width: 100vw;
+  margin: 0 auto;
+  gap: 0px;
+  transition: all 0.4s ease;
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Slide styling */
+.project-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.project-media-container {
+  max-height: 80vw;
+  width: auto;
+}
+
+video {
+  width: 100vw;
+  vertical-align: top;
+}
+
+.project-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.code-snippets {
+  position: absolute;
+  width: 450px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 100vh; 
+  overflow: hidden;
+  display: grid;
+  /* grid-template-rows: auto auto; */
+  gap: 20px; 
+}
+
+.code-box {
+  background-color: var(--code-box-background);
+  padding: 2px;
+  color: var(--code-box-text-color);
+  font-size: 0.53rem !important;
+  overflow: hidden;
+}
+
+@media (max-width: 580px) {
+  .code-box {
+    font-size: 0.43rem !important; 
+  }
+  .code-snippets {
+    width: 360px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Project descriptions section */
+.project-descriptions {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.0);
+  height: auto;
+  right: 0px;
+  font-size: 0.6rem;
+  border-radius: 8px;
+  transition: flex 0.4s ease;
+  z-index: 7;
+}
+
+.project-descriptions ul {
+  list-style-type: none;
+  background-color: transparent;
+  z-index: 8;
+}
+
+.project-descriptions li {
+  background-color: transparent;
+  padding: 0px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  color: var(--text-color);
+}
+
+.project-descriptions, 
+.project-descriptions ul, 
+.project-descriptions li {
+  touch-action: pan-y;
+}
+
+.project-descriptions li:hover {
+  color: var(--link-hover-color);
+  background-color: var(--project-descriptions-hover-bg);
+}
+
+/* Slide content styling */
+.project-image-container,
+.code-container,
+.project-description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Slide controls styling */
+.slide-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 19002;
+}
+
+.slide-controls button {
+  background: none;
+  border: 1px solid var(--link-color);
+  color: var(--link-color);
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.slide-controls button:hover {
+  background-color: var(--link-hover-color);
+  color: var(--text-color);
+}
+
+/* Project selector styling */
+.project-selector {
+  position: relative;
+  top: 30%;
+  z-index: 19001;
+}
+
+.project-selector ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 580px) {
+  .project-selector ul {
+    display: flex;
+  }
+  .project-selector {
+    position: absolute;
+    top: 97%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+  }
+  .project-description {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+  }
+}
+
+.project-selector li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.project-selector li:hover {
+  background-color: var(--project-descriptions-hover-bg);
+}
+
+.project-selector li.selected {
+  background-color: var(--link-hover-color);
+}
+
+.project-selector img {
+  width: 30px;
+  height: 30px;
+}
+
+/* Project image */
+.project-image {
+  width: 30%;
+  height: 30%;
+}
+
+/* Ensure the code box fills its container */
+.code-box {
+  width: 100%;
+  height: 100%;
+}
+
+/* Slide controls styling */
+.slide-controls {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.slide-controls .dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 5px;
+  background-color: var(--code-box-border-color);
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.slide-controls .dot.active {
+  background-color: var(--link-hover-color);
+}
+
+.slide-controls .dot:hover {
+  background-color: var(--link-hover-color);
+}
+
+@media (max-width: 580px) {
+  .slide-controls {
+    bottom: 10%;
+  }
+}
+
+
+@media (max-width: 640px) {
+  .project-image {
+    width: 0;
+    height: 0; 
+  }
+}
+
+.dark-mode-toggle {
+  fill: currentColor; /* Inherit color from parent */
+}
+
+.mymoon, .mysun {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.1s ease-out;
+}
+
+
+.cube {
+  position: absolute;
+  left: 20%;
+  top: 20%;
+  z-index: 7001;
+  width: 190px;
+  height:190px;
+  animation: cubeanim 5s infinite;
+  transform: rotate(5deg);
+}
+
+@keyframes cubeanim {
+  50% {
+    transform: translate(0px , -5px);       
+  }
+}
+
+.circle {
+  position: absolute;
+  top: 35%;
+  left: 65%;
+  z-index: 7001;
+  width: 190px;
+  height:190px;
+  animation: circleanim 5s infinite;
+}
+
+@keyframes circleanim {
+  50% {
+    transform: translate(0px , 20px) rotate(-5deg);       
+  }
+}
+
+.trianglepyramid{
+  position: absolute;
+  left: 20%;
+  top: 60%;
+  z-index: 7001;
+  width: 190px;
+  height:190px;
+  animation: trianglepyramidanim 8s infinite;
+  transform: rotate(-5deg);
+}
+
+@keyframes trianglepyramidanim {
+  50% {
+    transform: translate(10px , -5px);       
+  }
+}
+
+@media (max-width: 640px) {
+  .circle {
+    left: 50%;
+  }
+  .cube {
+    left: 10%;
+  }
+  .trianglepyramid {
+    left: 20%;
+  }
+}
+
+.worldart{
+  position: absolute;
+  align-content: bottom;
+  left: 0%;
+  bottom: -50%;
+  z-index: 7001;
+  width: 100vw;
+  height:80vw;
+  z-index: 999;
+}
+
+@media (max-width: 1280px) {
+  .worldart {
+      bottom: -30%;
+  }
+}
+@media (max-width: 1040px) {
+  .worldart {
+      bottom: -20%;
+  }
+}
+@media (max-width: 840px) {
+  .worldart {
+      bottom: -10%;
+  }
+}
+@media (max-width: 640px) {
+  .worldart {
+      bottom: 0%;
+  }
+}
+
+
+.profile{
+  display: flex;
+  width: 30px;
+  height: 30px;
+}
+
+.profilepic {
+  padding-left: 5px;
+
+}
+
+.email {
+  display: inline-flex;
+}
+/* Additional styles for syntax highlighting if needed */
+/* You can adjust the code font size and colors here */
+
+/* Adjust styles for other components as needed */
+
+/* Custom Cursor Style */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  pointer-events: none; /* Allows clicks to pass through */
+  will-change: transform;
+  z-index: 10000; /* Ensure it's on top of other elements */
+}
