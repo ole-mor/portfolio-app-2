@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 // App.tsx
+=======
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import './App.css';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
+<<<<<<< HEAD
 // 'myarray' defined outside the App component
+=======
+// Moved 'myarray' outside the App component to prevent it from changing on every render
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
 const myarray: string[] = ['Programming', 'Web Design', 'Digital art'];
 
 interface TypewriterProps {
@@ -36,6 +43,10 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, isDeleting, tS, startDela
       { threshold: 0.1 }
     );
 
+<<<<<<< HEAD
+=======
+    // Store ref.current in a variable to prevent ESLint warnings
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
     const currentRef = typewriterRef.current;
 
     if (currentRef) {
@@ -86,6 +97,7 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, isDeleting, tS, startDela
   );
 };
 
+<<<<<<< HEAD
 // Define NavbarProps outside
 interface NavbarProps {
   showNavbar: boolean;
@@ -131,6 +143,17 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode }
   };
 
   return (
+=======
+function App() {
+  interface NavbarProps {
+    showNavbar: boolean;
+  }
+
+  // Moved isDarkMode state above to prevent undefined usage
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const Navbar: React.FC<NavbarProps> = ({ showNavbar }) => (
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
     <nav className={`navbar ${showNavbar ? 'visible' : ''}`}>
       <ul className="bebas-neue-regular">
         <li>
@@ -159,6 +182,7 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode }
         <li>
           <button
             onClick={(e) => {
+<<<<<<< HEAD
               e.preventDefault();
               setIsDarkMode((prevMode) => !prevMode);
             }}
@@ -173,11 +197,34 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode }
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
             />
+=======
+              e.preventDefault(); // Prevent default behavior
+              setIsDarkMode((prevMode) => !prevMode); // Toggle dark mode
+            }}
+            className="dark-mode-toggle"
+            aria-label="Toggle Dark Mode"
+            style={{ WebkitTapHighlightColor: 'transparent' }} // Disable mobile tap highlight
+          >
+            {isDarkMode ? (
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/icons/moon.png`}
+                alt="moon"
+                className="mymoon"
+              />
+            ) : (
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/icons/sun.png`}
+                alt="sun"
+                className="mysun"
+              />
+            )}
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
           </button>
         </li>
       </ul>
     </nav>
   );
+<<<<<<< HEAD
 };
 
 // Define SideMenuProps outside
@@ -272,6 +319,98 @@ const useScrollDetection = () => {
 function App() {
   // isDarkMode state
   const [isDarkMode, setIsDarkMode] = useState(false);
+=======
+
+  interface SideMenuProps {
+    isOpen: boolean;
+  }
+
+  const SideMenu: React.FC<SideMenuProps> = ({ isOpen }) => (
+    <div className={`side-menu ${isOpen ? 'open' : ''}`}>
+      <ul className="bebas-neue-regular">
+        <li>
+          <a href="#section1" aria-label="Home">
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="#section2" aria-label="About">
+            About
+          </a>
+        </li>
+        <li>
+          <a href="#section3" aria-label="Projects">
+            Projects
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
+
+  function useOnScreen(ref: React.RefObject<HTMLElement>, threshold: number = 0.5) {
+    const [isIntersecting, setIntersecting] = useState(false);
+
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => setIntersecting(entry.isIntersecting),
+        { threshold }
+      );
+
+      // Store ref.current in a variable to prevent ESLint warnings
+      const currentRef = ref.current;
+
+      if (currentRef) {
+        observer.observe(currentRef);
+      }
+
+      return () => {
+        if (currentRef) observer.unobserve(currentRef);
+      };
+    }, [ref, threshold]);
+
+    return isIntersecting;
+  }
+
+  const useScrollDetection = () => {
+    const [showNavbar, setShowNavbar] = useState(false);
+    const [showSideMenu, setShowSideMenu] = useState(false);
+
+    useEffect(() => {
+      const sections = document.querySelectorAll<HTMLElement>('.section');
+
+      const handleScroll = () => {
+        const currentScroll = window.scrollY;
+        const viewportHeight = window.innerHeight;
+
+        sections.forEach((section, index) => {
+          const sectionTop = section.offsetTop;
+          const sectionBottom = sectionTop + section.offsetHeight;
+
+          if (
+            currentScroll >= sectionTop - viewportHeight / 2 &&
+            currentScroll < sectionBottom - viewportHeight / 2
+          ) {
+            if (index === 0) {
+              // We are in section1
+              setShowNavbar(true);
+              setShowSideMenu(false);
+            } else {
+              // We are in any section other than section1
+              setShowNavbar(false);
+              setShowSideMenu(true);
+            }
+          }
+        });
+      };
+
+      window.addEventListener('scroll', handleScroll);
+      handleScroll(); // Trigger scroll handler on initial load to set correct states
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    return { showNavbar, showSideMenu };
+  };
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
 
   // Project state and data
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
@@ -283,8 +422,12 @@ function App() {
       id: 'proj1',
       name: 'React web-app',
       icon: '/assets/icons/react-logo.png',
+<<<<<<< HEAD
       mediaType: 'image',
       media: '/assets/images/portfolio-app-2.png',
+=======
+      image: '/assets/images/portfolio-app-2.png',
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
       description: 'A web application build with React.',
       githublink: 'https://github.com/ole-mor/portfolio-app-2.git',
       codeSnippets: [
@@ -533,8 +676,12 @@ language: "makefile"
       id: 'proj5',
       name: 'Embedded/ Intgrated Systems',
       icon: '/assets/icons/embint.png',
+<<<<<<< HEAD
       mediaType: 'video',
       media: '/assets/videos/Zumovid.mp4',
+=======
+      image: '/assets/images/embedded-stuff.png',
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
       description: 'Small project things',
       githublink: 'https://github.com/ole-mor/_not-yet-posted_',
 
@@ -781,6 +928,10 @@ language: "rust"
     return () => clearTimeout(timeoutId);
   }, [currentTextIndex, isDeleting, isPaused]);
 
+<<<<<<< HEAD
+=======
+  // Wrapped scrollToSection with useCallback
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   const scrollToSection = useCallback((sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -788,6 +939,10 @@ language: "rust"
     }
   }, []);
 
+<<<<<<< HEAD
+=======
+  // Wrapped isInteractiveElement with useCallback
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   const isInteractiveElement = useCallback((element: HTMLElement): boolean => {
     return (
       element.tagName === 'A' ||
@@ -796,6 +951,10 @@ language: "rust"
     );
   }, []);
 
+<<<<<<< HEAD
+=======
+  // Wrapped handleScroll with useCallback
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   const handleScroll = useCallback(
     (event: WheelEvent) => {
       const sections = document.querySelectorAll('.section');
@@ -826,14 +985,26 @@ language: "rust"
     const preventDefault = (e: TouchEvent) => {
       e.preventDefault();
     };
+<<<<<<< HEAD
 
     document.addEventListener('touchmove', preventDefault, { passive: false });
 
+=======
+  
+    document.addEventListener('touchmove', preventDefault, { passive: false });
+  
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
     return () => {
       document.removeEventListener('touchmove', preventDefault);
     };
   }, []);
+<<<<<<< HEAD
 
+=======
+  
+
+  // Wrapped handleTouchStart with useCallback
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   const handleTouchStart = useCallback(
     (event: TouchEvent) => {
       const target = event.target as HTMLElement;
@@ -845,6 +1016,10 @@ language: "rust"
     [isInteractiveElement]
   );
 
+<<<<<<< HEAD
+=======
+  // Wrapped handleTouchMove with useCallback
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   const handleTouchMove = useCallback(
     (event: TouchEvent) => {
       const target = event.target as HTMLElement;
@@ -856,6 +1031,10 @@ language: "rust"
     [isInteractiveElement]
   );
 
+<<<<<<< HEAD
+=======
+  // Wrapped handleTouchEnd with useCallback
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   const handleTouchEnd = useCallback(() => {
     if (touchStart === 0 || touchEnd === 0) {
       return;
@@ -906,6 +1085,7 @@ language: "rust"
   // Choose syntax highlighting theme based on dark mode
   const syntaxTheme = isDarkMode ? vs2015 : docco;
 
+<<<<<<< HEAD
   const cursorRef = useRef<HTMLDivElement>(null);
   const mousePosition = useRef({ x: -100, y: -100 });
 
@@ -941,10 +1121,15 @@ language: "rust"
       {/* Custom Cursor */}
       <div className="custom-cursor" ref={cursorRef}></div>
 
+=======
+  return (
+    <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
       <style>
         @import
         url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap');
       </style>
+<<<<<<< HEAD
 
       {/* Section 1 */}
       <section className="section" id="section1">
@@ -955,6 +1140,10 @@ language: "rust"
             setIsDarkMode={setIsDarkMode}
           />
         )}
+=======
+      <section className="section" id="section1">
+        {showNavbar && <Navbar showNavbar={true} />}
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
         <div className="home-screen">
           <div className="intro-text">
             <span className="bebas-neue-regular">
@@ -1054,6 +1243,7 @@ language: "rust"
         <div className="projects-section">
           <div className="projects-container">
             <div className={`project-slide ${isProjectChanging ? 'slide-out' : 'slide-in'}`}>
+<<<<<<< HEAD
               {/* Slide 1: Project Image or Video */}
               <div className={`slide ${currentSlide === 0 ? 'active' : ''}`}>
                 {selectedProjectData && (
@@ -1074,6 +1264,17 @@ language: "rust"
                         muted
                       />
                     ) : null}
+=======
+              {/* Slide 1: Project Image */}
+              <div className={`slide ${currentSlide === 0 ? 'active' : ''}`}>
+                {selectedProjectData && (
+                  <div className="project-image-container">
+                    <img
+                      src={`${process.env.PUBLIC_URL}${selectedProjectData.image}`}
+                      alt={selectedProjectData.name}
+                      className="project-image"
+                    />
+>>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
                   </div>
                 )}
               </div>
