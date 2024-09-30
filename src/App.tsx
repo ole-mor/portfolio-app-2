@@ -697,9 +697,7 @@ language: "rust"
   };
 
   const selectedProjectData = projects.find((project) => project.id === selectedProject);
-
-  const selectedCodeSnippets = selectedProjectData ? selectedProjectData.codeSnippets : [];
-
+  
   const { showNavbar, showSideMenu } = useScrollDetection();
 
   const aboutRef = useRef<HTMLDivElement>(null);
