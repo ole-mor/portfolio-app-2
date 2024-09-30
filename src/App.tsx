@@ -249,6 +249,9 @@ function App() {
       id: 'proj1',
       name: 'React web-app',
       icon: '/assets/icons/react-logo.png',
+      image: '/assets/images/portfolio-app-2.png',
+      description: 'A web application build with React.',
+      githublink: 'https://github.com/ole-mor/portfolio-app-2.git',
       codeSnippets: [
 {       code: ` // Navbar.tsx //
 import React from 'react';
@@ -308,6 +311,10 @@ language: "html"
       id: 'proj2',
       name: '3D rendering',
       icon: '/assets/icons/3d.png',
+      image: '/assets/images/3d-renderer.png',
+      description: 'A 3d renderer of glb with animation and material support, future game?',
+      githublink: 'https://github.com/ole-mor/tcity.git',
+
       codeSnippets: [
         
 {
@@ -367,6 +374,10 @@ language: "c++",
       id: 'proj3',
       name: 'Survey tool',
       icon: '/assets/icons/survey-app.png',
+      image: '/assets/images/my-survey-app.png',
+      description: 'A full stack framework for handing survey data using .net and rust backend.',
+      githublink: 'https://github.com/ole-mor/_not-yet-posted_',
+
       codeSnippets: [
 {
   code: ` \
@@ -426,6 +437,10 @@ language: "python",
       id: 'proj4',
       name: 'DX tools',
       icon: '/assets/icons/devx.png',
+      image: '/assets/images/devxtools.png',
+      description: 'Misc apps',
+      githublink: 'https://github.com/ole-mor/_not-yet-posted_',
+
       codeSnippets: [
 {
   code: ` // ~/.config/nvim/init.lua //
@@ -483,6 +498,10 @@ language: "makefile"
       id: 'proj5',
       name: 'Embedded/ Intgrated Systems',
       icon: '/assets/icons/embint.png',
+      image: '/assets/images/embedded-stuff.png',
+      description: 'Small project things',
+      githublink: 'https://github.com/ole-mor/_not-yet-posted_',
+
       codeSnippets: [
 {
   code: ` // tidy/tidy.py //
@@ -537,6 +556,10 @@ language: "ino"
       id: 'proj6',
       name: 'Video Manipulation',
       icon: '/assets/icons/vision.png',
+      image: '/assets/images/computer-vision.png',
+      description: 'Computer vision project with AI face recognition',
+      githublink: 'https://github.com/ole-mor/_not-yet-posted_',
+
       codeSnippets: [
 {
   code: ` // SwiftVideoApp/VideoDisplay.swift //
@@ -592,6 +615,10 @@ language: "swift"
       id: 'proj7',
       name: 'Website',
       icon: '/assets/icons/fullstack.png',
+      image: '/assets/images/Fullstackwebsite.png',
+      description: 'A full stack app make with webassembly for community collaboration',
+      githublink: 'https://github.com/ole-mor/_not-yet-posted_',
+
       codeSnippets: [
 {
   code: ` // 2024-07-21-084717_create_posts/up.sql //
@@ -657,11 +684,14 @@ language: "rust"
     
   ];
 
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+
   const handleProjectClick = (projectId: string) => {
     setIsProjectChanging(true);
 
     setTimeout(() => {
       setSelectedProject(projectId);
+      setCurrentSlide(0);
       setIsProjectChanging(false);
     }, 400);
   };
@@ -934,7 +964,7 @@ language: "rust"
         </div>
       </section>
 
-      <div
+      <section
         className={`section fade-section ${isProjectsVisible ? 'in-view' : ''}`}
         id="section3"
         ref={projectsRef}
@@ -942,23 +972,61 @@ language: "rust"
         {showSideMenu && <SideMenu isOpen={true} />}
         <div className="projects-section">
           <div className="projects-container">
-            <div className={`code-snippets ${isProjectChanging ? 'slide-out' : 'slide-in'}`}>
-              <div className="code-container">
-                {selectedCodeSnippets.map((snippet, index) => (
-                  <div className="code-box" key={index}>
-                    <SyntaxHighlighter
-                      language={snippet.language}
-                      style={syntaxTheme}
-                      showLineNumbers={false}
-                    >
-                      {snippet.code}
-                    </SyntaxHighlighter>
+            <div className={`project-slide ${isProjectChanging ? 'slide-out' : 'slide-in'}`}>
+              {/* Slide 1: Project Image */}
+              <div className={`slide ${currentSlide === 0 ? 'active' : ''}`}>
+                {selectedProjectData && (
+                  <div className="project-image-container">
+                    <img
+                      src={`${process.env.PUBLIC_URL}${selectedProjectData.image}`}
+                      alt={selectedProjectData.name}
+                      className="project-image"
+                    />
                   </div>
-                ))}
+                )}
+              </div>
+              {/* Slide 2: Code Snippets */}
+              <div className={`slide ${currentSlide === 1 ? 'active' : ''}`}>
+                {selectedProjectData && (
+                  <div className="code-snippets">
+                    {selectedProjectData.codeSnippets.map((snippet, index) => (
+                      <div className="code-box" key={index}>
+                        <SyntaxHighlighter
+                          language={snippet.language}
+                          style={syntaxTheme}
+                          showLineNumbers={false}
+                        >
+                          {snippet.code}
+                        </SyntaxHighlighter>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {/* Slide 3: Description and GitHub Link */}
+              <div className={`slide ${currentSlide === 2 ? 'active' : ''}`}>
+                {selectedProjectData && (
+                  <div className="project-description">
+                    <p>{selectedProjectData.description}</p>
+                    <a href={selectedProjectData.githublink} target="_blank" rel="noopener noreferrer">
+                      View on GitHub
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
-
-            <div className="project-descriptions">
+            {/* Slide Controls */}
+            <div className="slide-controls">
+              {[0, 1, 2].map((index) => (
+                <span
+                  key={index}
+                  className={`dot ${currentSlide === index ? 'active' : ''}`}
+                  onClick={() => setCurrentSlide(index)}
+                ></span>
+              ))}
+            </div>
+            {/* Project Selector */}
+            <div className="project-selector">
               <ul className="ibm-plex-mono-bold">
                 {projects.map((project) => (
                   <li
@@ -969,21 +1037,19 @@ language: "rust"
                     onKeyPress={(e) => e.key === 'Enter' && handleProjectClick(project.id)}
                     aria-label={`View ${project.name}`}
                   >
-                    <img src={`${process.env.PUBLIC_URL}${project.icon}`} alt={project.name} className="project-icon" />
+                    <img
+                      src={`${process.env.PUBLIC_URL}${project.icon}`}
+                      alt={project.name}
+                      className="project-icon"
+                    />
                   </li>
                 ))}
               </ul>
             </div>
-
-            <div className="project-image">
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/images/part1.gif`}
-                alt="Project visual"
-              />
-            </div>
           </div>
         </div>
-      </div>
+      </section>
+
 
       <section
         className={`section fade-section ${isContactVisible ? 'in-view' : ''}`}
