@@ -37,13 +37,10 @@ html, body {
   overflow-y: hidden;
 }
 
-<<<<<<< HEAD
 body, body * {
   cursor: none !important;
 }
 
-=======
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
 @media (hover: none) and (pointer: coarse) {
   html, body {
     scroll-behavior: auto;
@@ -372,10 +369,6 @@ body, body * {
 
 .projects-section {
   position: relative;
-<<<<<<< HEAD
-=======
-  height: 100vh;
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   width: 100%;
   overflow: hidden;
 }
@@ -385,11 +378,7 @@ body, body * {
   position: relative;
   display: flex;
   justify-content: space-between;
-<<<<<<< HEAD
   max-width: 100vw;
-=======
-  max-width: 1200px;
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   margin: 0 auto;
   gap: 0px;
   transition: all 0.4s ease;
@@ -422,7 +411,6 @@ body, body * {
   opacity: 1;
 }
 
-<<<<<<< HEAD
 .project-media-container {
   max-height: 80vw;
   width: auto;
@@ -436,11 +424,6 @@ video {
 .project-image {
   max-width: 100%;
   max-height: 100%;
-=======
-.project-image {
-  max-width: 80%;
-  max-height: 80%;
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   object-fit: contain;
 }
 
@@ -455,10 +438,6 @@ video {
   display: grid;
   /* grid-template-rows: auto auto; */
   gap: 20px; 
-<<<<<<< HEAD
-=======
-  z-index: 6;
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
 }
 
 .code-box {
@@ -467,10 +446,6 @@ video {
   color: var(--code-box-text-color);
   font-size: 0.53rem !important;
   overflow: hidden;
-<<<<<<< HEAD
-=======
-  z-index: 6;
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
 }
 
 @media (max-width: 580px) {
@@ -538,10 +513,7 @@ video {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-<<<<<<< HEAD
   z-index: 19002;
-=======
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
 }
 
 .slide-controls button {
@@ -563,10 +535,7 @@ video {
 .project-selector {
   position: relative;
   top: 30%;
-<<<<<<< HEAD
   z-index: 19001;
-=======
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
 }
 
 .project-selector ul {
@@ -626,20 +595,13 @@ video {
 /* Slide controls styling */
 .slide-controls {
   position: absolute;
-<<<<<<< HEAD
   bottom: 5%;
-=======
-  top: 700px;
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-<<<<<<< HEAD
   z-index: 10;
-=======
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
 }
 
 .slide-controls .dot {
@@ -663,11 +625,7 @@ video {
 
 @media (max-width: 580px) {
   .slide-controls {
-<<<<<<< HEAD
     bottom: 10%;
-=======
-    top: 600px;
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
   }
 }
 
@@ -683,7 +641,6 @@ video {
   fill: currentColor; /* Inherit color from parent */
 }
 
-<<<<<<< HEAD
 .mymoon, .mysun {
   width: 20px;
   height: 20px;
@@ -691,17 +648,6 @@ video {
 }
 
 
-=======
-.mymoon {
-  width: 20px; 
-  height: 20px;
-}
-.mysun {
-  width: 20px;
-  height: 20px;
-}
-
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
 .cube {
   position: absolute;
   left: 20%;
@@ -815,7 +761,6 @@ video {
 /* You can adjust the code font size and colors here */
 
 /* Adjust styles for other components as needed */
-<<<<<<< HEAD
 
 /* Custom Cursor Style */
 .custom-cursor {
@@ -831,5 +776,3 @@ video {
   will-change: transform;
   z-index: 10000; /* Ensure it's on top of other elements */
 }
-=======
->>>>>>> 0ab4af8dfd5d6173ef4b616b94b33a18c6088360
