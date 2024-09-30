@@ -550,7 +550,7 @@ video {
   }
   .project-selector {
     position: absolute;
-    top: 97%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%, -50%)
   }
@@ -626,7 +626,7 @@ video {
 
 @media (max-width: 580px) {
   .slide-controls {
-    bottom: 10%;
+    bottom: 20%;
   }
 }
 
