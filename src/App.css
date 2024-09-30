@@ -455,6 +455,7 @@ html, body {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.0);
   height: auto;
+  right: 0px;
   font-size: 0.6rem;
   border-radius: 8px;
   transition: flex 0.4s ease;
@@ -582,7 +583,7 @@ html, body {
 /* Slide controls styling */
 .slide-controls {
   position: absolute;
-  bottom: 20px;
+  top: 700px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -611,7 +612,7 @@ html, body {
 
 @media (max-width: 580px) {
   .slide-controls {
-    bottom: 70px;
+    top: 600px;
   }
 }
 
@@ -709,19 +710,19 @@ html, body {
   z-index: 999;
 }
 
-@media (max-width: 640px) {
-  .worldart {
-      bottom: 0%;
-  }
-}
-@media (max-width: 1040px) {
-  .worldart {
-      bottom: -10%;
-  }
-}
-@media (max-width: 1040px) {
+@media (max-width: 1280px) {
   .worldart {
       bottom: -30%;
+  }
+}
+@media (max-width: 1040px) {
+  .worldart {
+      bottom: -20%;
+  }
+}
+@media (max-width: 840px) {
+  .worldart {
+      bottom: -10%;
   }
 }
 @media (max-width: 640px) {
