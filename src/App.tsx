@@ -697,7 +697,7 @@ language: "rust"
   };
 
   const selectedProjectData = projects.find((project) => project.id === selectedProject);
-  
+
   const { showNavbar, showSideMenu } = useScrollDetection();
 
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -788,6 +788,19 @@ language: "rust"
 
   const [touchStart, setTouchStart] = useState<number>(0);
   const [touchEnd, setTouchEnd] = useState<number>(0);
+
+  useEffect(() => {
+    const preventDefault = (e: TouchEvent) => {
+      e.preventDefault();
+    };
+  
+    document.addEventListener('touchmove', preventDefault, { passive: false });
+  
+    return () => {
+      document.removeEventListener('touchmove', preventDefault);
+    };
+  }, []);
+  
 
   // Wrapped handleTouchStart with useCallback
   const handleTouchStart = useCallback(

@@ -35,6 +35,7 @@
 html, body {
   scroll-behavior: smooth;
   overflow-y: hidden;
+  touch-action: none;
 }
 
 @media (hover: none) and (pointer: coarse) {
