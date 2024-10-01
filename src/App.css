@@ -595,7 +595,7 @@ video {
 /* Slide controls styling */
 .slide-controls {
   position: absolute;
-  bottom: 5%;
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
