@@ -232,37 +232,27 @@ function useOnScreen(ref: React.RefObject<HTMLElement>, threshold: number = 0.5)
 }
 
 const useScrollDetection = () => {
-  const [showNavbar, setShowNavbar] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);  // Show navbar initially
   const [showSideMenu, setShowSideMenu] = useState(false);
 
   useEffect(() => {
-    const sections = document.querySelectorAll<HTMLElement>('.section');
-
     const handleScroll = () => {
       const currentScroll = window.scrollY;
-      const viewportHeight = window.innerHeight;
+      const triggerPoint = 300;  // The pixel height at which to switch from navbar to sidebar
 
-      sections.forEach((section, index) => {
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-
-        if (
-          currentScroll >= sectionTop - viewportHeight / 2 &&
-          currentScroll < sectionBottom - viewportHeight / 2
-        ) {
-          if (index === 0) {
-            setShowNavbar(true);
-            setShowSideMenu(false);
-          } else {
-            setShowNavbar(false);
-            setShowSideMenu(true);
-          }
-        }
-      });
+      // Check if we've scrolled past the trigger point (1000px)
+      if (currentScroll >= triggerPoint) {
+        setShowNavbar(false);   // Hide navbar
+        setShowSideMenu(true);  // Show sidebar
+      } else {
+        setShowNavbar(true);    // Show navbar
+        setShowSideMenu(false); // Hide sidebar
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll();
+    handleScroll();  // Initial check in case user is already scrolled
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -1040,6 +1030,9 @@ language: "rust"
                 </div>
               )}
             </div>
+          </div>
+          <div className="about-img">
+            <img src={`${process.env.PUBLIC_URL}/assets/images/wspic.png`} alt="wspic" className="wspic" />
           </div>
         </div>
       </section>

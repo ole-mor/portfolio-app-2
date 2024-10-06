@@ -96,19 +96,29 @@ html, body {
 }
 
 .navbar ul li a {
+  position: relative; /* Add this line */
   color: var(--link-color);
   text-decoration: none;
-  font-size: 1.0rem;
+  font-size: 1.4rem;
   transition: all 0.3s ease;
 }
 
-.navbar ul li a:hover {
-  color: var(--link-hover-color);
-  transform: scale(1.1);
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
+/* Create the underline effect using ::after pseudo-element */
+.navbar ul li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* Adjust if you want the line closer or farther from the text */
+  width: 0;
+  height: 4px; /* Thickness of the underline */
+  background-color: var(--link-hover-color);
+  transition: width 0.3s ease; /* Smooth animation */
 }
 
+/* Animate the underline on hover */
+.navbar ul li a:hover::after {
+  width: 100%;
+}
 /* Dark mode toggle button */
 .dark-mode-toggle {
   background: none;
@@ -122,8 +132,8 @@ html, body {
 .side-menu {
   position: fixed;
   top: 0;
-  left: -250px;
-  width: 65px;
+  left: -230px;
+  width: 90px;
   height: 100%;
   background-color: var(--side-menu-bg);
   display: flex;
@@ -156,9 +166,9 @@ html, body {
 
 .side-menu ul li a {
   color: var(--link-color);
-  padding: 15px;
+  padding: 5px;
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 1.3rem;
   display: block;
   transition: all 0.3s ease;
 }
@@ -317,6 +327,15 @@ html, body {
   color: var(--text-color);
 }
 
+.wspic {
+  width: 300px;
+  height: auto;
+  border-radius: 7%;
+  box-shadow:
+    inset 0 -3em 3em rgb(0 200 0 / 30%),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.6);
+}
+
 @media (max-width: 450px) {
   .boxed-text-container {
     width: 65vw;
@@ -333,9 +352,10 @@ html, body {
 
 .about-container {
   position: absolute;
-  top: 35%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
+  gap: 70px;
   display: flex;
   align-items: flex-start;
   user-select: none;
@@ -412,7 +432,11 @@ html, body {
 }
 
 .project-media-container {
-  max-height: 80vw;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 60vw;
   width: auto;
 }
 
