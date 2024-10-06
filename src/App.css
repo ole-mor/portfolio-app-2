@@ -84,7 +84,7 @@ html, body {
 
 @media (max-width: 480px) {
   .navbar ul {
-    gap: 8px; 
+    gap: 0px; 
   }
 }
 
@@ -255,6 +255,7 @@ html, body {
   font-family: "Bebas Neue", sans-serif;
   font-weight: 400;
   font-style: normal;
+  padding-left: 0;
 }
 
 .home-screen {
@@ -290,7 +291,7 @@ html, body {
   font-size: 5rem;
   color: var(--text-color);
   left: 50%;
-  top: 50%;
+  top: 45%;
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 7002;
@@ -320,36 +321,7 @@ html, body {
   vertical-align: middle;
 }
 
-.boxed-text-container {
-  width: 300px;
-  background-color: transparent;
-  overflow: hidden;
-  color: var(--text-color);
-}
-
-.wspic {
-  width: 300px;
-  height: auto;
-  border-radius: 7%;
-  box-shadow:
-    inset 0 -3em 3em rgb(0 200 0 / 30%),
-    0.3em 0.3em 1em rgba(0, 0, 0, 0.6);
-}
-
-@media (max-width: 450px) {
-  .boxed-text-container {
-    width: 65vw;
-  }
-}
-
-.boxed-text-about {
-  position: relative;
-  height: auto;
-  text-align: justify;
-  font-size: 0.8rem;
-}
-
-
+/* Ensuring both elements are wrapped in a parent container */
 .about-container {
   position: absolute;
   top: 45%;
@@ -364,6 +336,54 @@ html, body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+
+.boxed-text-container {
+  width: 300px;
+  background-color: transparent;
+  overflow-y: auto; /* Allow vertical scrolling */
+  color: var(--text-color);
+  z-index: 7010;
+  left: 0;
+  height: 300px; /* Set a fixed height */
+}
+
+.wspic {
+  width: 300px;
+  height: auto;
+  border-radius: 7%;
+  box-shadow:
+    inset 0 -3em 3em rgb(0 200 0 / 30%),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.6);
+  z-index: 7011;
+}
+
+/* Adjustments for mobile view under 450px */
+@media (max-width: 450px) {
+  .about-container {
+    flex-direction: column; /* Stack them on top of each other */
+    align-items: center; /* Center align the items */
+    gap: 20px; /* Adjust the gap between them */
+    top: 50%;
+  }
+
+  .boxed-text-container,
+  .wspic {
+    width: 100%; /* Make them take full width of their container */
+  }
+
+  .wspic {
+    margin-bottom: 10px; /* Add some space between them */
+  }
+  .boxed-text-container {
+    height: 320px;
+  }
+}
+.boxed-text-about {
+  position: relative;
+  height: auto;
+  text-align: justify;
+  font-size: 0.8rem;
 }
 
 .contactinfo-text {
@@ -677,7 +697,7 @@ video {
 .cube {
   position: absolute;
   left: 20%;
-  top: 20%;
+  top: 15%;
   z-index: 7001;
   width: 190px;
   height:190px;
@@ -693,7 +713,7 @@ video {
 
 .circle {
   position: absolute;
-  top: 35%;
+  top: 30%;
   left: 65%;
   z-index: 7001;
   width: 190px;
@@ -710,7 +730,7 @@ video {
 .trianglepyramid{
   position: absolute;
   left: 20%;
-  top: 60%;
+  top: 55%;
   z-index: 7001;
   width: 190px;
   height:190px;
