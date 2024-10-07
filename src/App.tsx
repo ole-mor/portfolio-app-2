@@ -15,6 +15,7 @@ interface TypewriterProps {
   startDelay: number;
 }
 
+
 const Typewriter: React.FC<TypewriterProps> = ({ text, isDeleting, tS, startDelay }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [typingStarted, setTypingStarted] = useState<boolean>(false);
@@ -91,10 +92,11 @@ interface NavbarProps {
   showNavbar: boolean;
   isDarkMode: boolean;
   setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  handleToggleDarkMode: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 // Navbar component defined outside App
-const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode }) => {
+const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, handleToggleDarkMode }) => {
   const iconRef = useRef<HTMLImageElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLImageElement>) => {
@@ -129,6 +131,8 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode }
 
     icon.style.transform = 'scale(1)';
   };
+  
+    
 
   return (
     <nav className={`navbar ${showNavbar ? 'visible' : ''}`}>
@@ -157,11 +161,9 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode }
           </a>
         </li>
         <li>
+          <div className="ripple-effect"></div>
           <button
-            onClick={(e) => {
-              e.preventDefault();
-              setIsDarkMode((prevMode) => !prevMode);
-            }}
+            onClick={handleToggleDarkMode}
             className="dark-mode-toggle"
             aria-label="Toggle Dark Mode"
           >
@@ -266,6 +268,69 @@ function App() {
   // Project state and data
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [isProjectChanging, setIsProjectChanging] = useState(false);
+
+  const rippleRef = useRef<HTMLDivElement>(null);
+
+// App.tsx
+const handleToggleDarkMode = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const button = e.currentTarget;
+  const rect = button.getBoundingClientRect();
+
+  const rippleX = rect.left + rect.width / 2 + window.scrollX;
+  const rippleY = rect.top + rect.height / 2 + window.scrollY;
+
+  document.documentElement.style.setProperty('--ripple-x', `${rippleX}px`);
+  document.documentElement.style.setProperty('--ripple-y', `${rippleY}px`);
+
+  const ripple = rippleRef.current;
+  const appElement = document.querySelector('.App') as HTMLElement;
+
+  if (ripple && appElement) {
+    // Reset the ripple display
+    ripple.style.display = 'block';
+
+    const computedStyles = getComputedStyle(document.documentElement);
+
+    const newBackgroundColor = isDarkMode
+      ? computedStyles.getPropertyValue('--light-background-color').trim()
+      : computedStyles.getPropertyValue('--dark-background-color').trim();
+    const oldBackgroundColor = isDarkMode
+      ? computedStyles.getPropertyValue('--dark-background-color').trim()
+      : computedStyles.getPropertyValue('--dark-background-color').trim();
+
+    ripple.style.backgroundColor = newBackgroundColor;
+    appElement.style.setProperty('--background-color', oldBackgroundColor);
+
+    ripple.classList.remove('ripple-expand', 'ripple-retract');
+
+    if (isDarkMode) {
+      ripple.style.transform = 'scale(3)';
+      ripple.getBoundingClientRect();
+      ripple.classList.add('ripple-retract');
+    } else {
+      ripple.style.transform = 'scale(0)';
+      ripple.getBoundingClientRect();
+      ripple.classList.add('ripple-expand');
+    }
+
+    const transitionDuration =
+      parseFloat(getComputedStyle(ripple).getPropertyValue('--transition-duration')) * 1000 || 1000;
+
+    setTimeout(() => {
+      setIsDarkMode(!isDarkMode);
+
+      // Hide the ripple effect after 1.5 seconds
+      setTimeout(() => {
+        ripple.style.display = 'none';
+        ripple.classList.remove('ripple-expand', 'ripple-retract');
+        appElement.style.removeProperty('--background-color');
+      }, 1000); // Adjust this value to match your animation duration
+    }, 0);
+  } else {
+    setIsDarkMode(!isDarkMode);
+  }
+};
+
 
   // Updated project data with two code snippets per project
   const projects = [
@@ -929,7 +994,7 @@ language: "rust"
     <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
       {/* Custom Cursor */}
       <div className="custom-cursor" ref={cursorRef}></div>
-
+      <div className="ripple-effect" ref={rippleRef}></div>
       <style>
         @import
         url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap');
@@ -942,6 +1007,7 @@ language: "rust"
             showNavbar={true}
             isDarkMode={isDarkMode}
             setIsDarkMode={setIsDarkMode}
+            handleToggleDarkMode={handleToggleDarkMode}
           />
         )}
         <div className="home-screen">
@@ -982,6 +1048,13 @@ language: "rust"
                 src={`${process.env.PUBLIC_URL}/assets/images/trianglepyramid.png`}
                 alt="trianglepyramid"
                 className="trianglepyramid"
+              />
+            </div>
+            <div className="memepng">
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/images/memeda.png`}
+                alt="meme"
+                className="meme"
               />
             </div>
 
@@ -1032,7 +1105,7 @@ language: "rust"
             </div>
           </div>
           <div className="about-img">
-            <img src={`${process.env.PUBLIC_URL}/assets/images/wspic.png`} alt="wspic" className="wspic" />
+            <img src={`${process.env.PUBLIC_URL}/assets/images/wspica.png`} alt="wspic" className="wspic" />
           </div>
         </div>
       </section>
@@ -1167,6 +1240,11 @@ language: "rust"
               className="worldart"
             />
           </div>
+          <img
+              src={isDarkMode ? `${process.env.PUBLIC_URL}/assets/images/squigliz-darkmode.png` : `${process.env.PUBLIC_URL}/assets/images/squigliz.png`}
+              alt={isDarkMode ? 'sqglz-d' : 'sqlglz'}
+              className={isDarkMode ? 'squigliz-darkmode' : 'squigliz'}
+            />
         </div>
       </section>
     </div>

@@ -1,5 +1,7 @@
 /* Default Variables */
 :root{
+  --light-background-color: #D8DDD9;
+  --dark-background-color: #121212;
   --background-color: #D8DDD9;
   --text-color: #070604;
   --link-color: black;
@@ -12,12 +14,15 @@
   --project-descriptions-hover-bg: rgba(255, 255, 255, 0.2);
   --selected-project-bg: rgba(116, 196, 236, 0.6);
   --side-menu-bg: rgba(0, 0, 0, 0);
+  --transition-duration: 0.5s;
+  --ripple-size: 0%; /* Dynamically controlled ripple size */
+  --clip-path-size: 0%; /* Initial size for the ripple */
   /* Add other variables as needed */
 }
 
 /* Dark Mode Variables */
 .App.dark-mode {
-  --background-color: #121212;
+  --background-color: var(--dark-background-color);
   --text-color: #E0E0E0;
   --link-color: #E0E0E0;
   --link-hover-color: #BB86FC;
@@ -29,7 +34,7 @@
   --project-descriptions-hover-bg: #2A2A2A;
   --selected-project-bg: #333333;
   --side-menu-bg: transparent;
-  /* Override other variables as needed */
+
 }
 
 html, body {
@@ -49,10 +54,41 @@ html, body {
 
 .App {
   position: relative;
-  overflow: hidden;
   background: var(--background-color);
   color: var(--text-color);
+  overflow: hidden;
 }
+
+.ripple-effect {
+  position: absolute;
+  top: calc(var(--ripple-y) - 50vw);
+  left: calc(var(--ripple-x) - 50vw);
+  width: 100vw;
+  height: 100vw;
+  background-color: var(--background-color);
+  border-radius: 50%;
+  transform-origin: center;
+  transition: transform var(--transition-duration) ease-out, background-color var(--transition-duration);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Start with transform scale based on the mode */
+.ripple-effect {
+  transform: scale(0);
+}
+
+/* Ripple expands from scale(0) to scale(3) */
+.ripple-expand {
+  transform: scale(3);
+}
+
+/* Ripple retracts from scale(3) to scale(0) */
+.ripple-retract {
+  transform: scale(0);
+}
+
+
 
 .navbar {
   position: fixed;
@@ -90,17 +126,18 @@ html, body {
 
 .navbar ul li {
   display: inline;
-  color: var(--link-color);
+  color: var(--text-color);
   padding: 10px 15px;
   transition: all 0.3s ease;
 }
 
 .navbar ul li a {
   position: relative; /* Add this line */
-  color: var(--link-color);
+  color: var(--text-color);
   text-decoration: none;
   font-size: 1.4rem;
   transition: all 0.3s ease;
+  z-index: 5;
 }
 
 /* Create the underline effect using ::after pseudo-element */
@@ -119,6 +156,7 @@ html, body {
 .navbar ul li a:hover::after {
   width: 100%;
 }
+
 /* Dark mode toggle button */
 .dark-mode-toggle {
   background: none;
@@ -127,7 +165,9 @@ html, body {
   font-size: 1rem;
   cursor: pointer;
   padding: 0px;
+  z-index: 6;
 }
+
 
 .side-menu {
   position: fixed;
@@ -198,6 +238,7 @@ html, body {
 }
 
 .section {
+  position: relative;
   min-height: 100vh;
   width: 100%;
   display: flex;
@@ -277,7 +318,6 @@ html, body {
   transform: translate(-50%, -50%);
   font-size: 2rem;
   color: var(--text-color);
-  text-align: center; 
   width: max-content;
 }
 
@@ -285,15 +325,16 @@ html, body {
   font-size: 1.5rem; 
 }
 
+
+
 .array-text {
   position: absolute;
   z-index: 7003;
   font-size: 5rem;
   color: var(--text-color);
-  left: 50%;
-  top: 45%;
+  left: 25%;
+  top: 25%;
   transform: translate(-50%, -50%);
-  text-align: center;
   z-index: 7002;
   width: max-content;
 }
@@ -305,10 +346,37 @@ html, body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  text-align: center;
   width: max-content;
   padding-top: 60px;
   z-index: 7002;
+}
+
+@media (max-width: 700px) {
+  .array-text {
+    position: absolute;
+    z-index: 7003;
+    font-size: 5rem;
+    color: var(--text-color);
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 7002;
+    width: max-content;
+  }
+  
+  .Typewriter {
+    position: absolute;
+    display:flex;
+    width: max-content;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: max-content;
+    padding-top: 60px;
+    z-index: 7002;
+  }
 }
 
 .inline-container {
@@ -349,6 +417,7 @@ html, body {
 }
 
 .wspic {
+  position: relative;
   width: 300px;
   height: auto;
   border-radius: 7%;
@@ -359,26 +428,51 @@ html, body {
 }
 
 /* Adjustments for mobile view under 450px */
-@media (max-width: 450px) {
+@media (max-width: 700px) {
   .about-container {
     flex-direction: column; /* Stack them on top of each other */
     align-items: center; /* Center align the items */
     gap: 20px; /* Adjust the gap between them */
-    top: 50%;
+    top: 45%;
   }
 
   .boxed-text-container,
   .wspic {
     width: 100%; /* Make them take full width of their container */
+    min-width: 200px;
   }
 
   .wspic {
     margin-bottom: 10px; /* Add some space between them */
   }
   .boxed-text-container {
-    height: 320px;
+    bottom: 100px;
+    height: 260px;
   }
 }
+
+@media (max-width: 450px) {
+  .about-container {
+    flex-direction: column; /* Stack them on top of each other */
+    align-items: center; /* Center align the items */
+    gap: 0px; /* Adjust the gap between them */
+    top: 47%;
+  }
+
+  .boxed-text-container,
+  .wspic {
+    width: 100%; /* Make them take full width of their container */
+    min-width: 200px;
+  }
+
+  .wspic {
+    top:60px;
+  }
+  .boxed-text-container {
+    height: 75vw;
+  }
+}
+
 .boxed-text-about {
   position: relative;
   height: auto;
@@ -483,14 +577,17 @@ video {
   display: grid;
   /* grid-template-rows: auto auto; */
   gap: 20px; 
+  z-index: 300;
 }
 
 .code-box {
+  position: absolute;
   background-color: var(--code-box-background);
   padding: 2px;
   color: var(--code-box-text-color);
   font-size: 0.53rem !important;
   overflow: hidden;
+  z-index: 300;
 }
 
 @media (max-width: 580px) {
@@ -534,7 +631,9 @@ video {
 .project-descriptions, 
 .project-descriptions ul, 
 .project-descriptions li {
+  position: absolute;
   touch-action: pan-y;
+  z-index: 10;
 }
 
 .project-descriptions li:hover {
@@ -688,19 +787,21 @@ video {
 }
 
 .mymoon, .mysun {
+  position: relative;
   width: 20px;
   height: 20px;
   transition: transform 0.1s ease-out;
+  z-index: 5;
 }
 
 
 .cube {
   position: absolute;
-  left: 20%;
+  left: 40%;
   top: 15%;
   z-index: 7001;
-  width: 190px;
-  height:190px;
+  width: 70px;
+  height:70px;
   animation: cubeanim 5s infinite;
   transform: rotate(5deg);
 }
@@ -716,8 +817,8 @@ video {
   top: 30%;
   left: 65%;
   z-index: 7001;
-  width: 190px;
-  height:190px;
+  width: 70px;
+  height: 70px;
   animation: circleanim 5s infinite;
 }
 
@@ -729,13 +830,24 @@ video {
 
 .trianglepyramid{
   position: absolute;
-  left: 20%;
-  top: 55%;
+  left: 25%;
+  top: 50%;
   z-index: 7001;
-  width: 190px;
-  height:190px;
+  width: 70px;
+  height:70px;
   animation: trianglepyramidanim 8s infinite;
   transform: rotate(-5deg);
+}
+
+.meme {
+  position: absolute; /* Change 'sticky' to 'fixed' if you want it always at the bottom */
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%); /* Remove the translateY to prevent vertical shifting */
+  z-index: 7001;
+  width: 50%;
+  min-width: 350px;
+  height: auto;
 }
 
 @keyframes trianglepyramidanim {
@@ -746,18 +858,24 @@ video {
 
 @media (max-width: 640px) {
   .circle {
-    left: 50%;
+    left: 65%;
+    width: 100px;
+    height:100px;
   }
   .cube {
-    left: 10%;
+    left: 25%;
+    width: 100px;
+    height:100px;
   }
   .trianglepyramid {
-    left: 20%;
+    left: 10%;
+    width: 100px;
+    height:100px;
   }
 }
 
 .worldart{
-  position: absolute;
+  position: fixed;
   align-content: bottom;
   left: 0%;
   bottom: -50%;
