@@ -338,7 +338,7 @@ html, body {
   transform: translate(-50%, -50%);
   z-index: 7002;
   width: max-content;
-  overflow: hidden;
+
 }
 
 .Typewriter {
