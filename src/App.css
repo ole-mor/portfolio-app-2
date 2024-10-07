@@ -358,7 +358,7 @@ html, body {
     font-size: 5rem;
     color: var(--text-color);
     left: 50%;
-    top: 45%;
+    top: 40%;
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 7002;
@@ -447,7 +447,7 @@ html, body {
   }
   .boxed-text-container {
     bottom: 100px;
-    height: 260px;
+    height: 270px;
   }
 }
 
@@ -873,7 +873,7 @@ video {
     height:100px;
   }
   .meme {
-    bottom:10%
+    bottom:12%
   }
 }
 
