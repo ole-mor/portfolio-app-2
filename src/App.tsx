@@ -312,10 +312,7 @@ const handleToggleDarkMode = (e: React.MouseEvent<HTMLButtonElement>) => {
       ripple.getBoundingClientRect();
       ripple.classList.add('ripple-expand');
     }
-
-    const transitionDuration =
-      parseFloat(getComputedStyle(ripple).getPropertyValue('--transition-duration')) * 1000 || 1000;
-
+    
     setTimeout(() => {
       setIsDarkMode(!isDarkMode);
 
