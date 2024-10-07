@@ -456,7 +456,7 @@ html, body {
     flex-direction: column; /* Stack them on top of each other */
     align-items: center; /* Center align the items */
     gap: 0px; /* Adjust the gap between them */
-    top: 37%;
+    top: 44%;
   }
 
   .boxed-text-container,
@@ -873,7 +873,7 @@ video {
     height:100px;
   }
   .meme {
-    bottom:20%
+    bottom:10%
   }
 }
 
