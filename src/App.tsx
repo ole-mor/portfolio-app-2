@@ -112,7 +112,7 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, 
     const dy = e.clientY - iconCenterY;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    const maxScale = 1.5;
+    const maxScale = 2;
     const minScale = 1;
 
     const maxDistance = rect.width / 2;
@@ -136,12 +136,17 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, 
 
   return (
     <nav className={`navbar ${showNavbar ? 'visible' : ''}`}>
-      <ul className="bebas-neue-regular">
-        <li>
-          <a href="#section1" aria-label="Home">
-            Home
-          </a>
-        </li>
+      <div className="nav-home">
+        <ul className="ibm-plex-mono-regular">
+          <li>
+            <a href="#section1" aria-label="oleornaes">
+              <b>ole.ornas@gmail.com</b>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div className="nav-rest">
+      <ul className="barlow-semibold">
         <li>
           <a href="#section2" aria-label="About">
             About
@@ -149,7 +154,7 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, 
         </li>
         <li>
           <a href="#section3" aria-label="Projects">
-            Projects
+            <b>Projects</b>
           </a>
         </li>
         <li>
@@ -157,7 +162,7 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, 
             href="https://drive.google.com/file/d/1oZo5Ci-2AQnpfJNAx51p2nMq__H6K5Gj/view?usp=share_link"
             aria-label="Resumé"
           >
-            Resumé
+            <b>Resumé</b>
           </a>
         </li>
         <li>
@@ -168,7 +173,7 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, 
             aria-label="Toggle Dark Mode"
           >
             <img
-              src={isDarkMode ? '/assets/icons/moon.png' : '/assets/icons/sun.png'}
+              src={isDarkMode ? '/assets/icons/lb-dark.png' : '/assets/icons/lb-reg.png'}
               alt={isDarkMode ? 'moon' : 'sun'}
               className={isDarkMode ? 'mymoon' : 'mysun'}
               ref={iconRef}
@@ -178,6 +183,7 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, 
           </button>
         </li>
       </ul>
+      </div>
     </nav>
   );
 };
@@ -190,7 +196,7 @@ interface SideMenuProps {
 // SideMenu component defined outside App
 const SideMenu: React.FC<SideMenuProps> = ({ isOpen }) => (
   <div className={`side-menu ${isOpen ? 'open' : ''}`}>
-    <ul className="bebas-neue-regular">
+    <ul className="barlow-regular">
       <li>
         <a href="#section1" aria-label="Home">
           Home
@@ -312,7 +318,7 @@ const handleToggleDarkMode = (e: React.MouseEvent<HTMLButtonElement>) => {
       ripple.getBoundingClientRect();
       ripple.classList.add('ripple-expand');
     }
-    
+
     setTimeout(() => {
       setIsDarkMode(!isDarkMode);
 
@@ -321,7 +327,7 @@ const handleToggleDarkMode = (e: React.MouseEvent<HTMLButtonElement>) => {
         ripple.style.display = 'none';
         ripple.classList.remove('ripple-expand', 'ripple-retract');
         appElement.style.removeProperty('--background-color');
-      }, 1000); // Adjust this value to match your animation duration
+      }, 2000); // Adjust this value to match your animation duration
     }, 0);
   } else {
     setIsDarkMode(!isDarkMode);
@@ -994,7 +1000,7 @@ language: "rust"
       <div className="ripple-effect" ref={rippleRef}></div>
       <style>
         @import
-        url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&display=swap');
+        url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&family=Anton&family=Barlow:wght@400;600&family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
       </style>
 
       {/* Section 1 */}
@@ -1008,8 +1014,17 @@ language: "rust"
           />
         )}
         <div className="home-screen">
+          <div className="intro-name">
+            <span className="bitter-homename">
+              Ole Ornæs
+            </span>
+          </div>
           <div className="intro-text">
-            <span className="bebas-neue-regular">
+            <span className="barlow-regular">
+              I am a Master Student at Kristiania College in &nbsp;
+              <a href="https://earth.google.com/web/search/oslo">Oslo, Norway</a>
+              , specializing in HCI, working on UI/UX for web and Embedded systems architecture.
+
             </span>
           </div>
           <div className="array-text">
@@ -1025,8 +1040,32 @@ language: "rust"
               </span>
             </div>
           </div>
+          <div className="frontpage-links">
+            <ul>
+              <li><a href="https://www.linkedin.com/in/ole-ornaes-618220178/">
+                <img src={`${process.env.PUBLIC_URL}/assets/images/ln-logo.png`} alt="ln-logo" className="ln-logo" />
+              </a></li>
+              <li><a href="https://www.facebook.com/profile.php?id=100003266480521">
+                <img src={`${process.env.PUBLIC_URL}/assets/images/fb-logo.png`} alt="ln-logo" className="ln-logo" 
+                />
+              </a></li>
+              <li><a href="https://x.com/OliMorn">
+                <img src={`${process.env.PUBLIC_URL}/assets/images/x-logo.png`} alt="ln-logo" className="ln-logo" />
+              </a></li>
+              <li><a href="https://github.com/ole-mor">
+                <img src={`${process.env.PUBLIC_URL}/assets/images/ghb-logo.png`} alt="ln-logo" className="ln-logo" />
+              </a></li>
+            </ul>
+          </div>
           <div className="frontpage-art">
-            <div className="cubepng">
+            <div className="trianglepyramidpng">
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/images/computart.png`}
+                  alt="trianglepyramid"
+                  className="trianglepyramid"
+                />
+              </div>
+{/*             <div className="cubepng">
               <img
                 src={`${process.env.PUBLIC_URL}/assets/images/cube.png`}
                 alt="cube"
@@ -1053,7 +1092,7 @@ language: "rust"
                 alt="meme"
                 className="meme"
               />
-            </div>
+            </div> */}
 
           </div>
         </div>
@@ -1066,44 +1105,7 @@ language: "rust"
       >
         {showSideMenu && <SideMenu isOpen={true} />}
         <div className="about-container">
-          <div className="boxed-text-container">
-            <div className="boxed-text-about">
-              {typewriterTriggered && (
-                <div className="ibm-plex-mono-regular">
-                  <Typewriter
-                    text="Hi, my name is Ole Mathias Ornæs. I am a Master Student at Kristiania College in "
-                    isDeleting={false}
-                    tS={20}
-                    startDelay={0}
-                  />
-                  <a href="https://earth.google.com/web/search/oslo">
-                    <Typewriter
-                      text="Oslo, Norway"
-                      isDeleting={false}
-                      tS={20}
-                      startDelay={1600}
-                    />
-                  </a>
-                  <Typewriter
-                    text=", specializing in HCI, working on UI/UX for web and Embedded systems architecture."
-                    isDeleting={false}
-                    tS={20}
-                    startDelay={1800}
-                  />
-                  <p></p>
-                  <Typewriter
-                    text="I enjoy taking walks, and love spending time in nature, but my ideal environment is where I can enjoy building my projects, and being on the cutting edge of digital media."
-                    isDeleting={false}
-                    tS={15}
-                    startDelay={4000}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="about-img">
-            <img src={`${process.env.PUBLIC_URL}/assets/images/wspica.png`} alt="wspic" className="wspic" />
-          </div>
+
         </div>
       </section>
 
