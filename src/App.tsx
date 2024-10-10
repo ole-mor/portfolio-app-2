@@ -251,10 +251,10 @@ const useScrollDetection = () => {
       // Check if we've scrolled past the trigger point (1000px)
       if (currentScroll >= triggerPoint) {
         setShowNavbar(true);   // Hide navbar
-        //setShowSideMenu(true);  // Show sidebar
+        setShowSideMenu(false);  // Show sidebar
       } else {
         setShowNavbar(true);    // Show navbar
-        //setShowSideMenu(false); // Hide sidebar
+        setShowSideMenu(false); // Hide sidebar
       }
     };
 
