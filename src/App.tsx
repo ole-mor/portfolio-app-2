@@ -173,7 +173,7 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, 
             aria-label="Toggle Dark Mode"
           >
             <img
-              src={isDarkMode ? '/assets/icons/lb-dark.png' : '/assets/icons/lb-reg.png'}
+              src={isDarkMode ? '/assets/icons/moon.png' : '/assets/icons/sun.png'}
               alt={isDarkMode ? 'moon' : 'sun'}
               className={isDarkMode ? 'mymoon' : 'mysun'}
               ref={iconRef}
@@ -250,11 +250,11 @@ const useScrollDetection = () => {
 
       // Check if we've scrolled past the trigger point (1000px)
       if (currentScroll >= triggerPoint) {
-        setShowNavbar(false);   // Hide navbar
-        setShowSideMenu(true);  // Show sidebar
+        setShowNavbar(true);   // Hide navbar
+        //setShowSideMenu(true);  // Show sidebar
       } else {
         setShowNavbar(true);    // Show navbar
-        setShowSideMenu(false); // Hide sidebar
+        //setShowSideMenu(false); // Hide sidebar
       }
     };
 
@@ -1059,12 +1059,12 @@ language: "rust"
           </div>
           <div className="frontpage-art">
             <div className="trianglepyramidpng">
-                <img
-                  src={`${process.env.PUBLIC_URL}/assets/images/computart.png`}
-                  alt="trianglepyramid"
-                  className="trianglepyramid"
-                />
-              </div>
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/images/computart.png`}
+                alt="trianglepyramid"
+                className="trianglepyramid"
+              />
+            </div>
 {/*             <div className="cubepng">
               <img
                 src={`${process.env.PUBLIC_URL}/assets/images/cube.png`}
@@ -1103,12 +1103,40 @@ language: "rust"
         id="section2"
         ref={aboutRef}
       >
-        {showSideMenu && <SideMenu isOpen={true} />}
         <div className="about-container">
-
+          <div className="human">
+            <div className="thinking-text">
+              <span className="barlow-regular">
+                <p>In 2020, I finished my bachelors degree in psychology. Since I've worked as a in healthcare as a assistant and a therapist.</p>
+                <p>I have 4 years experience working with a diverse range of patients, and handled difficult social situations.</p>  
+              </span>
+            </div>
+            <div className="thinking">
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/images/thinking.png`}
+                  alt="art of me thinking"
+                  className="thinking"
+                />
+            </div>
+          </div>
+          <div className="computer">
+            <div className="IT-text">
+              <span className="barlow-regular">
+                <p>I've used computers ever since I was very little as both my parents are civil engineers. In 2021 to christmas 2022 I tried studying Electrical engineering</p>
+                <p>It didn't work out, but I still love engineering and programming.</p>
+                <p className="IT-text2">I read my first C book in the Norwegian Ungdomsskole and have since practiced Scripting, 3D modelling, Data handling and tried many languages and styles of project-building.</p>
+              </span>
+            </div>
+            <div className="IT">
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/images/IT.png`}
+                alt="art of me on a computer."
+                className="IT"
+              />
+            </div>
+          </div>
         </div>
       </section>
-
       <section
         className={`section fade-section ${isProjectsVisible ? 'in-view' : ''}`}
         id="section3"
