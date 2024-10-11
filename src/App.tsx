@@ -140,7 +140,7 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, 
         <ul className="ibm-plex-mono-regular">
           <li>
             <a href="#section1" aria-label="oleornaes">
-              <b>ole.ornas@gmail.com</b>
+              <b>oleornas</b>
             </a>
           </li>
         </ul>
@@ -154,7 +154,7 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, 
         </li>
         <li>
           <a href="#section3" aria-label="Projects">
-            <b>Projects</b>
+            Projects
           </a>
         </li>
         <li>
@@ -270,9 +270,10 @@ const useScrollDetection = () => {
 function App() {
   // isDarkMode state
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [selectedProject, setSelectedProject] = useState('proj1'); // Default to 'proj1'
 
   // Project state and data
-  const [selectedProject, setSelectedProject] = useState<string | null>(null);
+/*   const [selectedProject, setSelectedProject] = useState<string | null>(null); */
   const [isProjectChanging, setIsProjectChanging] = useState(false);
 
   const rippleRef = useRef<HTMLDivElement>(null);
@@ -342,7 +343,7 @@ const handleToggleDarkMode = (e: React.MouseEvent<HTMLButtonElement>) => {
       name: 'React web-app',
       icon: '/assets/icons/react-logo.png',
       mediaType: 'image',
-      media: '/assets/images/portfolio-app-2.png',
+      media: '/assets/media/react.gif',
       description: 'A web application build with React.',
       githublink: 'https://github.com/ole-mor/portfolio-app-2.git',
       codeSnippets: [
@@ -404,7 +405,8 @@ language: "html"
       id: 'proj2',
       name: '3D rendering',
       icon: '/assets/icons/3d.png',
-      image: '/assets/images/3d-renderer.png',
+      mediaType: 'image',
+      media: '/assets/media/tcity.gif',
       description: 'A 3d renderer of glb with animation and material support, future game?',
       githublink: 'https://github.com/ole-mor/tcity.git',
 
@@ -799,8 +801,13 @@ language: "rust"
   const contactRef = useRef<HTMLDivElement>(null);
 
   const isAboutVisible = useOnScreen(aboutRef, 0.5);
-  const isProjectsVisible = useOnScreen(projectsRef, 0.5);
+  const isProjectsVisible = useOnScreen(projectsRef, 0);
   const isContactVisible = useOnScreen(contactRef, 0.5);
+
+  useEffect(() => {
+    console.log('isProjectsVisible:', isProjectsVisible);
+  }, [isProjectsVisible]);
+
 
   const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -1107,7 +1114,7 @@ language: "rust"
           <div className="human">
             <div className="thinking-text">
               <span className="barlow-regular">
-                <p>In 2020, I finished my bachelors degree in psychology. Since I've worked as a in healthcare as a assistant and a therapist.</p>
+                <p>In 2020, I finished my bachelor's degree in psychology. Since I've worked as a in healthcare as a assistant and a therapist.</p>
                 <p>I have 4 years experience working with a diverse range of patients, and handled difficult social situations.</p>  
               </span>
             </div>
@@ -1142,7 +1149,6 @@ language: "rust"
         id="section3"
         ref={projectsRef}
       >
-        {showSideMenu && <SideMenu isOpen={true} />}
         <div className="projects-section">
           <div className="projects-container">
             <div className={`project-slide ${isProjectChanging ? 'slide-out' : 'slide-in'}`}>

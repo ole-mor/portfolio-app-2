@@ -1,3 +1,5 @@
+
+/* App.css */
 /* Default Variables */
 :root{
 /*   --light-background-color: #D8DDD9;
@@ -5,8 +7,8 @@
   --background-color: #D8DDD9;
   --text-color: #070604;
   --link-color: black; */
-    --light-background-color: #D8DDD9;
-  --dark-background-color: #1f1c2c;
+  --light-background-color: #D8DDD9;
+  --dark-background-color: #191919;
   --background-color: #D8DDD9;
   --text-color: #070604;
   --link-color: black;
@@ -61,7 +63,6 @@ html, body {
   position: relative;
   background: var(--background-color);
   color: var(--text-color);
-  overflow: hidden;
 }
 
 .ripple-effect {
@@ -334,7 +335,6 @@ html, body {
   justify-content: flex-start;
   padding: 0px;
   box-sizing: border-box;
-  overflow: hidden;
   background-color: transparent;
 }
 
@@ -543,7 +543,7 @@ html, body {
   vertical-align: middle;
 }
 
-/* About container */
+/* /* About container */
 .about-container {
   display: flex;
   align-items: center;
@@ -551,8 +551,209 @@ html, body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  z-index: 3; /* Increase z-index */
+  z-index: 3;
   position: relative; /* Add this to create a new stacking context */
+}
+
+/* Fade section animation */
+.fade-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-duration) var(--transition-timing),
+              transform var(--transition-duration) var(--transition-timing);
+}
+
+.fade-section.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Projects section layout */
+.projects-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.projects-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+/* Slide styling */
+.project-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity var(--transition-duration) var(--transition-timing);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+/* Media container */
+.project-media-container {
+  max-width: 100%;
+  max-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-media-container img,
+.project-media-container video {
+  max-width: 50%;
+  max-height: 50%;
+  object-fit: contain;
+  
+}
+
+/* Code snippets */
+.code-snippets {
+  display: grid;
+  gap: 20px;
+  max-width: 90%;
+  max-height: 80vh;
+  font-size: 0.5rem;
+  overflow: auto;
+  padding: 20px;
+  background-color: var(--code-box-background);
+  border-radius: 8px;
+}
+
+.code-box {
+  font-size: clamp(0.5rem, 2vw, 0.8rem);
+  background-color: var(--code-box-background);
+  font-size: 0.5rem;
+  overflow: auto;
+}
+
+/* Project descriptions */
+.project-description {
+  background-color: var(--project-description-bg);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 50%;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+/* Slide controls */
+.slide-controls {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.slide-controls .dot {
+  height: var(--dot-size);
+  width: var(--dot-size);
+  margin: 0 var(--dot-spacing);
+  background-color: var(--code-box-border-color);
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color var(--transition-duration) var(--transition-timing);
+}
+
+.slide-controls .dot.active,
+.slide-controls .dot:hover {
+  background-color: var(--link-hover-color);
+}
+
+/* Project selector */
+.project-selector {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 20;
+}
+
+.project-selector ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-selector li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color var(--transition-duration) var(--transition-timing);
+}
+
+.project-selector li:hover,
+.project-selector li.selected {
+  background-color: var(--project-descriptions-hover-bg);
+}
+
+.project-selector img {
+  width: 30px;
+  height: 30px;
+  transition: transform var(--transition-duration) var(--transition-timing);
+}
+
+.project-selector li:hover img,
+.project-selector li.selected img {
+  transform: scale(1.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .project-selector {
+    top: auto;
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .project-selector ul {
+    display: flex;
+  }
+
+  .slide-controls {
+    bottom: 15%;
+  }
+
+  .code-snippets,
+  .project-description {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .code-box {
+    font-size: 0.5rem;
+  }
+
+  .project-selector img {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .human {
@@ -703,198 +904,75 @@ html, body {
 
 }
 
-.fade-section {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  z-index: 0;
-}
-
-.fade-section.in-view {
-  opacity: 1;
-  transform: translateY(0);
-  z-index: 0;
-}
-
-.projects-section {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-/* Projects Section */
-.projects-container {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  max-width: 100vw;
-  margin: 0 auto;
-  gap: 0px;
-  transition: all 0.4s ease;
-  height: 100vh;
-  overflow: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-/* Slide styling */
-.project-slide {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.4s ease-in-out;
-}
-
-.slide.active {
-  opacity: 1;
-}
-
+/* Project Media */
 .project-media-container {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-height: 60vw;
-  width: auto;
-}
-
-video {
-  width: 100vw;
-  vertical-align: top;
-}
-
-.project-image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.code-snippets {
-  position: absolute;
-  width: 450px;
-  top: 50%;
-  left: 50%;
-  padding-left: 40px;
-  transform: translate(-50%, -50%);
-  max-height: 100vh; 
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  display: grid;
-  /* grid-template-rows: auto auto; */
-  gap: 20px; 
-  z-index: 300;
+}
+
+.project-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .code-box {
-  position: absolute;
-  background-color: var(--code-box-background);
-  padding: 2px;
-  color: var(--code-box-text-color);
-  font-size: 0.53rem !important;
-  overflow: hidden;
-  z-index: 300;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 580px) {
-  .code-box {
-    font-size: 0.43rem !important; 
-  }
-  .code-snippets {
-    width: 360px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
-/* Project descriptions section */
-.project-descriptions {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.0);
-  height: auto;
-  right: 0px;
-  font-size: 0.6rem;
-  border-radius: 8px;
-  transition: flex 0.4s ease;
-  z-index: 7;
-}
-
-.project-descriptions ul {
-  list-style-type: none;
-  background-color: transparent;
-  z-index: 8;
-}
-
-.project-descriptions li {
-  background-color: transparent;
-  padding: 0px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-  color: var(--text-color);
-}
-
-.project-descriptions, 
-.project-descriptions ul, 
-.project-descriptions li {
-  position: absolute;
-  touch-action: pan-y;
-  z-index: 10;
-}
-
-.project-descriptions li:hover {
-  color: var(--link-hover-color);
-  background-color: var(--project-descriptions-hover-bg);
-}
-
-/* Slide content styling */
-.project-image-container,
-.code-container,
+/* Project Description */
 .project-description {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  background-color: #ffffff; /* Adjust as needed */
+  color: #333333; /* Adjust as needed */
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-/* Slide controls styling */
+.project-description p {
+  margin-bottom: 1em;
+}
+
+.project-description a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+.project-description a:hover {
+  text-decoration: underline;
+}
+
+/* Slide Controls */
 .slide-controls {
   position: absolute;
-  bottom: 20px;
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 19002;
 }
 
-.slide-controls button {
-  background: none;
-  border: 1px solid var(--link-color);
-  color: var(--link-color);
-  padding: 10px 20px;
-  margin: 0 10px;
+.slide-controls .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 1rem;
 }
 
-.slide-controls button:hover {
-  background-color: var(--link-hover-color);
-  color: var(--text-color);
+.slide-controls .dot.active {
+  background-color: #717171;
 }
 
-/* Project selector styling */
+/* Project Selector */
 .project-selector {
-  position: relative;
-  top: 30%;
-  z-index: 19001;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .project-selector ul {
@@ -903,98 +981,68 @@ video {
   margin: 0;
 }
 
-@media (max-width: 580px) {
-  .project-selector ul {
-    display: flex;
-  }
-  .project-selector {
-    position: absolute;
-    top: 85%;
-    left: 50%;
-    transform: translate(-50%, -50%)
-  }
-  .project-description {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%)
-  }
-}
-
 .project-selector li {
-  padding: 5px;
+  margin-bottom: 15px;
   cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
 }
 
+.project-selector li.selected,
 .project-selector li:hover {
-  background-color: var(--project-descriptions-hover-bg);
+  opacity: 1;
 }
 
-.project-selector li.selected {
-  background-color: var(--link-hover-color);
+.project-icon {
+  width: 50px;
+  height: 50px;
 }
 
-.project-selector img {
-  width: 30px;
-  height: 30px;
-}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .projects-container {
+    height: auto;
+  }
 
-/* Project image */
-.project-image {
-  width: 30%;
-  height: 30%;
-}
+  .project-selector {
+    position: static;
+    transform: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
 
-/* Ensure the code box fills its container */
-.code-box {
-  width: 100%;
-  height: 100%;
-}
+  .project-selector li {
+    display: inline-block;
+    margin: 0 10px;
+  }
 
-/* Slide controls styling */
-.slide-controls {
-  position: absolute;
-  bottom: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 20000;
-}
-
-.slide-controls .dot {
-  height: 15px;
-  width: 15px;
-  margin: 0 5px;
-  background-color: var(--code-box-border-color);
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  z-index: 99999;
-}
-
-.slide-controls .dot.active {
-  background-color: var(--link-hover-color);
-}
-
-.slide-controls .dot:hover {
-  background-color: var(--link-hover-color);
-}
-
-@media (max-width: 580px) {
   .slide-controls {
-    bottom: 20%;
+    bottom: 5%;
   }
 }
 
-
-@media (max-width: 640px) {
-  .project-image {
-    width: 0;
-    height: 0; 
+@media (max-width: 480px) {
+  .project-description {
+    font-size: 0.9rem;
   }
+
+  .project-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Fade-in Effect */
+.fade-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-section.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .dark-mode-toggle {
@@ -1099,22 +1147,3 @@ video {
 .email {
   display: inline-flex;
 }
-/* Additional styles for syntax highlighting if needed */
-/* You can adjust the code font size and colors here */
-
-/* Adjust styles for other components as needed */
-
-/* Custom Cursor Style */
-/* .custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 10px;
-  height: 10px;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  pointer-events: none;
-  will-change: transform;
-  z-index: 10000;
-} */
