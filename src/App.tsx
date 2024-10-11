@@ -1016,7 +1016,7 @@ language: "rust"
     const [touchEndX, setTouchEndX] = useState<number>(0);
   
     // Slide change on swipe
-    const SWIPE_THRESHOLD = 50; // Minimum distance for swipe detection
+    const SWIPE_THRESHOLD = 150; // Minimum distance for swipe detection
   
     const handleTouchStartx = (event: React.TouchEvent) => {
       setTouchStartX(event.touches[0].clientX);
