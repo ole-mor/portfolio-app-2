@@ -1031,19 +1031,21 @@ language: "rust"
   };
   
   const handleTouchEndx = () => {
-    const swipeDistance = Math.abs(touchStartX - touchEndX);
-    
-    // Check if it's a tap, and if so, do nothing
+    // If touchEndX was not set (no touchmove event), set it to touchStartX
+    const adjustedTouchEndX = touchEndX || touchStartX;
+    const swipeDistance = Math.abs(touchStartX - adjustedTouchEndX);
+  
+    // Check if it's a tap (short swipe), and if so, do nothing
     if (swipeDistance < TAP_THRESHOLD) {
       // It's a tap, ignore this
       return;
     }
   
     // If swipe distance exceeds the threshold, change the slide
-    if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
+    if (touchStartX - adjustedTouchEndX > SWIPE_THRESHOLD) {
       // Swipe left -> Next slide
       setCurrentSlide((prevSlide) => (prevSlide < 2 ? prevSlide + 1 : prevSlide));
-    } else if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
+    } else if (adjustedTouchEndX - touchStartX > SWIPE_THRESHOLD) {
       // Swipe right -> Previous slide
       setCurrentSlide((prevSlide) => (prevSlide > 0 ? prevSlide - 1 : prevSlide));
     }
@@ -1052,7 +1054,7 @@ language: "rust"
     setTouchStartX(0);
     setTouchEndX(0);
   };
-
+  
   // Handle slide circle (dot) click
   const handleDotClick = (index: number) => {
     if (index !== currentSlide) {
