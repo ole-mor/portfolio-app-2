@@ -469,7 +469,8 @@ language: "c++",
       id: 'proj3',
       name: 'Survey tool',
       icon: '/assets/icons/survey-app.png',
-      image: '/assets/images/my-survey-app.png',
+      mediaType: 'video',
+      media: '/assets/media/survey.mp4',
       description: 'A full stack framework for handing survey data using .net and rust backend.',
       githublink: 'https://github.com/ole-mor/_not-yet-posted_',
 
@@ -532,7 +533,8 @@ language: "python",
       id: 'proj4',
       name: 'DX tools',
       icon: '/assets/icons/devx.png',
-      image: '/assets/images/devxtools.png',
+      mediaType: 'image',
+      media: '/assets/media/nvim.gif',
       description: 'Misc apps',
       githublink: 'https://github.com/ole-mor/_not-yet-posted_',
 
@@ -594,7 +596,7 @@ language: "makefile"
       name: 'Embedded/ Intgrated Systems',
       icon: '/assets/icons/embint.png',
       mediaType: 'video',
-      media: '/assets/videos/Zumovid.mp4',
+      media: '/assets/media/Zumo.mp4',
       description: 'Small project things',
       githublink: 'https://github.com/ole-mor/_not-yet-posted_',
 
@@ -999,6 +1001,15 @@ language: "rust"
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
+
+  useEffect(() => {
+    // Select all video elements inside the `.project-media-container` and remove controls
+    const videos = document.querySelectorAll('.project-media-container video');
+    videos.forEach((video) => {
+      video.removeAttribute('controls');
+    });
+  }, [selectedProject, currentSlide]); // Run this effect when selected project or slide changes
+  
 
   return (
     <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
