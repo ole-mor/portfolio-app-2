@@ -235,7 +235,7 @@ html, body {
   .nav-home {
     justify-content: left;
     top: 8%;
-    left: 23%;
+    left: 30%;
     padding: 0 0;
   }
   .nav-home ul li {
@@ -572,7 +572,7 @@ html, body {
 .projects-section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 85vh;
   overflow: hidden;
 }
 
@@ -634,7 +634,6 @@ html, body {
   gap: 20px;
   max-width: 90%;
   max-height: 80vh;
-  font-size: 0.5rem;
   overflow: auto;
   padding: 20px;
   background-color: var(--code-box-background);
@@ -646,6 +645,28 @@ html, body {
   background-color: var(--code-box-background);
   font-size: 0.5rem;
   overflow: auto;
+}
+
+/* Adjustments for mobile view under 450px */
+@media (max-width: 450px) {
+  /* Code snippets */
+.code-snippets {
+  display: grid;
+  gap: 20px;
+  max-width: 90%;
+  max-height: 80vh;
+  overflow: auto;
+  padding: 5px;
+  background-color: var(--code-box-background);
+  border-radius: 8px;
+}
+
+.code-box {
+  font-size: clamp(0.5rem, 2vw, 0.8rem);
+  background-color: var(--code-box-background);
+  font-size: 0.405rem;
+  overflow: auto;
+}
 }
 
 .slide-controls .dot.active,

@@ -1011,6 +1011,38 @@ language: "rust"
   }, [selectedProject, currentSlide]); // Run this effect when selected project or slide changes
   
 
+    // Variables for tracking touch
+    const [touchStartX, setTouchStartX] = useState<number>(0);
+    const [touchEndX, setTouchEndX] = useState<number>(0);
+  
+    // Slide change on swipe
+    const SWIPE_THRESHOLD = 50; // Minimum distance for swipe detection
+  
+    const handleTouchStartx = (event: React.TouchEvent) => {
+      setTouchStartX(event.touches[0].clientX);
+    };
+  
+    const handleTouchMovex = (event: React.TouchEvent) => {
+      setTouchEndX(event.touches[0].clientX);
+    };
+  
+    const handleTouchEndx = () => {
+      if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
+        // Swipe left -> Next slide
+        setCurrentSlide((prevSlide) => (prevSlide < 2 ? prevSlide + 1 : prevSlide));
+      }
+  
+      if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
+        // Swipe right -> Previous slide
+        setCurrentSlide((prevSlide) => (prevSlide > 0 ? prevSlide - 1 : prevSlide));
+      }
+  
+      // Reset touch positions
+      setTouchStartX(0);
+      setTouchEndX(0);
+    };
+  
+
   return (
     <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
       {/* Custom Cursor */}
@@ -1159,6 +1191,9 @@ language: "rust"
         className={`section fade-section ${isProjectsVisible ? 'in-view' : ''}`}
         id="section3"
         ref={projectsRef}
+        onTouchStart={handleTouchStartx}
+        onTouchMove={handleTouchMovex}
+        onTouchEnd={handleTouchEndx}
       >
         <div className="projects-section">
           <div className="projects-container">
