@@ -1002,46 +1002,85 @@ language: "rust"
     };
   }, []);
 
+
+  const [previousSlide, setPreviousSlide] = useState<number | null>(null);
+
+
   useEffect(() => {
     // Select all video elements inside the `.project-media-container` and remove controls
     const videos = document.querySelectorAll('.project-media-container video');
     videos.forEach((video) => {
       video.removeAttribute('controls');
     });
-  }, [selectedProject, currentSlide]); // Run this effect when selected project or slide changes
+  }, [selectedProject, currentSlide]);
   
+  // Variables for tracking touch
+  const [touchStartX, setTouchStartX] = useState<number>(0);
+  const [touchEndX, setTouchEndX] = useState<number>(0);
+  
+  // Swipe detection constants
+  const SWIPE_THRESHOLD = 150; // Minimum swipe distance for slide change
+  const TAP_THRESHOLD = 10; // Maximum distance to consider it a tap (not a swipe)
+  
+  const handleTouchStartx = (event: React.TouchEvent) => {
+    setTouchStartX(event.touches[0].clientX);
+  };
+  
+  const handleTouchMovex = (event: React.TouchEvent) => {
+    setTouchEndX(event.touches[0].clientX);
+  };
+  
+  const handleTouchEndx = () => {
+    const swipeDistance = Math.abs(touchStartX - touchEndX);
+  
+    if (swipeDistance < TAP_THRESHOLD) {
+      // It's a tap, not a swipe, so we ignore it
+      return;
+    }
+  
+    if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
+      // Swipe left -> Next slide
+      setCurrentSlide((prevSlide) => (prevSlide < 2 ? prevSlide + 1 : prevSlide));
+    }
+  
+    if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
+      // Swipe right -> Previous slide
+      setCurrentSlide((prevSlide) => (prevSlide > 0 ? prevSlide - 1 : prevSlide));
+    }
+  
+    // Reset touch positions
+    setTouchStartX(0);
+    setTouchEndX(0);
+  };
 
-    // Variables for tracking touch
-    const [touchStartX, setTouchStartX] = useState<number>(0);
-    const [touchEndX, setTouchEndX] = useState<number>(0);
+  // Handle slide circle (dot) click
+  const handleDotClick = (index: number) => {
+    if (index !== currentSlide) {
+      setPreviousSlide(currentSlide);
+      setCurrentSlide(index);
+      setIsProjectChanging(true);
+      setTimeout(() => setIsProjectChanging(false), 500); // Adjust this to match the animation duration
+    }
+  };
   
-    // Slide change on swipe
-    const SWIPE_THRESHOLD = 150; // Minimum distance for swipe detection
-  
-    const handleTouchStartx = (event: React.TouchEvent) => {
-      setTouchStartX(event.touches[0].clientX);
-    };
-  
-    const handleTouchMovex = (event: React.TouchEvent) => {
-      setTouchEndX(event.touches[0].clientX);
-    };
-  
-    const handleTouchEndx = () => {
-      if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
-        // Swipe left -> Next slide
-        setCurrentSlide((prevSlide) => (prevSlide < 2 ? prevSlide + 1 : prevSlide));
-      }
-  
-      if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
-        // Swipe right -> Previous slide
-        setCurrentSlide((prevSlide) => (prevSlide > 0 ? prevSlide - 1 : prevSlide));
-      }
-  
-      // Reset touch positions
-      setTouchStartX(0);
-      setTouchEndX(0);
-    };
-  
+  // Handle slide animations based on the previous and current slides
+  useEffect(() => {
+    if (previousSlide === null) return;
+
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach(slide => {
+      slide.classList.remove('slide-from-left', 'slide-from-right');
+    });
+
+    const newSlide = document.querySelector(`.slide[data-index='${currentSlide}']`);
+
+    if (currentSlide > previousSlide) {
+      newSlide?.classList.add('slide-from-right');
+    } else if (currentSlide < previousSlide) {
+      newSlide?.classList.add('slide-from-left');
+    }
+  }, [currentSlide, previousSlide]);
+
 
   return (
     <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
@@ -1258,7 +1297,7 @@ language: "rust"
                 <span
                   key={index}
                   className={`dot ${currentSlide === index ? 'active' : ''}`}
-                  onClick={() => setCurrentSlide(index)}
+                  onClick={() => handleDotClick(index)}
                 ></span>
               ))}
             </div>
