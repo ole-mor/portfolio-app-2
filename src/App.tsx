@@ -1181,6 +1181,7 @@ language: "rust"
                         autoPlay
                         loop
                         muted
+                        playsInline
                       />
                     ) : null}
                   </div>
