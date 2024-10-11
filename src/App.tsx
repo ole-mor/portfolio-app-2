@@ -1032,18 +1032,18 @@ language: "rust"
   
   const handleTouchEndx = () => {
     const swipeDistance = Math.abs(touchStartX - touchEndX);
-  
+    
+    // Check if it's a tap, and if so, do nothing
     if (swipeDistance < TAP_THRESHOLD) {
-      // It's a tap, not a swipe, so we ignore it
+      // It's a tap, ignore this
       return;
     }
   
+    // If swipe distance exceeds the threshold, change the slide
     if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
       // Swipe left -> Next slide
       setCurrentSlide((prevSlide) => (prevSlide < 2 ? prevSlide + 1 : prevSlide));
-    }
-  
-    if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
+    } else if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
       // Swipe right -> Previous slide
       setCurrentSlide((prevSlide) => (prevSlide > 0 ? prevSlide - 1 : prevSlide));
     }
