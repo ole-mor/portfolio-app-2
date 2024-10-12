@@ -771,7 +771,7 @@ language: "rust"
   const projectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
-  const isAboutVisible = useOnScreen(aboutRef, 0.5);
+  const isAboutVisible = useOnScreen(aboutRef, 0);
   const isProjectsVisible = useOnScreen(projectsRef, 0);
   const isContactVisible = useOnScreen(contactRef, 0);
 
@@ -1164,6 +1164,9 @@ language: "rust"
         ref={aboutRef}
       >
         <div className="about-container">
+          <div className="about-me">
+            <div className="bitter-homename">ABOUT ME</div>
+          </div>
           <div className="human">
             <div className="thinking-text">
               <span className="barlow-regular">
@@ -1206,6 +1209,9 @@ language: "rust"
         onTouchEnd={handleTouchEndx}
       >
         <div className="projects-section">
+          <div className="projects-me">
+              <div className="bitter-homename">PROJECTS</div>
+          </div>
           <div className="projects-container">
             <div className={`project-slide ${isProjectChanging ? 'slide-out' : 'slide-in'}`}>
               {/* Slide 1: Project Image or Video */}
@@ -1304,11 +1310,10 @@ language: "rust"
         ref={contactRef}
       >
         <div className="lastpage">
-          
+          <div className="contactinfo-me">
+            <div className="bitter-homename">CONTACT INFO</div>
+          </div>
           <div className="contactinfo-text">
-            <div className="bitter-homename">
-              <p>Contact info:</p>
-            </div>
             <div className="bitter-homename">
               <a href="mailto:ole.ornas@gmail.com">ole.ornas@gmail.com</a>
             </div>
