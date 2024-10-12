@@ -1167,8 +1167,8 @@ language: "rust"
           <div className="human">
             <div className="thinking-text">
               <span className="barlow-regular">
-                <p>In 2020, I finished my bachelor's degree in psychology. Since I've worked as a in healthcare as a assistant and a therapist.</p>
-                <p>I have 4 years experience working with a diverse range of patients, and handled difficult social situations.</p>  
+                <p>In 2020, I finished my bachelor's degree in psychology. Since, I've worked as a in healthcare as a assistant and a therapist.</p>
+                <p>I have 4 years experience working with a diverse range of patients, and handled difficult social interactions.</p>  
               </span>
             </div>
             <div className="thinking">
