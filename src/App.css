@@ -667,7 +667,7 @@ html, body {
 
   .about-me {
     position: absolute;
-    top: 50%;
+    top: 46%;
     left: -16%;
     transform: rotate(90deg);
   }
@@ -756,7 +756,7 @@ html, body {
   .projects-me {
     position: absolute;
     font-size: 2rem;
-    top: 45%;
+    top: 40%;
     left: -14%;
     transform: rotate(90deg);
   }
@@ -1096,7 +1096,7 @@ html, body {
 }
 
 .squigliz {
-  opacity: 0.6;
+  opacity: 0.3;
 }
 
 .squigliz-darkmode {
