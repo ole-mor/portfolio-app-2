@@ -188,34 +188,6 @@ const Navbar: React.FC<NavbarProps> = ({ showNavbar, isDarkMode, setIsDarkMode, 
   );
 };
 
-// Define SideMenuProps outside
-interface SideMenuProps {
-  isOpen: boolean;
-}
-
-// SideMenu component defined outside App
-const SideMenu: React.FC<SideMenuProps> = ({ isOpen }) => (
-  <div className={`side-menu ${isOpen ? 'open' : ''}`}>
-    <ul className="barlow-regular">
-      <li>
-        <a href="#section1" aria-label="Home">
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="#section2" aria-label="About">
-          About
-        </a>
-      </li>
-      <li>
-        <a href="#section3" aria-label="Projects">
-          Projects
-        </a>
-      </li>
-    </ul>
-  </div>
-);
-
 function useOnScreen(ref: React.RefObject<HTMLElement>, threshold: number = 0.5) {
   const [isIntersecting, setIntersecting] = useState(false);
 
@@ -241,7 +213,6 @@ function useOnScreen(ref: React.RefObject<HTMLElement>, threshold: number = 0.5)
 
 const useScrollDetection = () => {
   const [showNavbar, setShowNavbar] = useState(true);  // Show navbar initially
-  const [showSideMenu, setShowSideMenu] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -251,10 +222,8 @@ const useScrollDetection = () => {
       // Check if we've scrolled past the trigger point (1000px)
       if (currentScroll >= triggerPoint) {
         setShowNavbar(true);   // Hide navbar
-        setShowSideMenu(false);  // Show sidebar
       } else {
         setShowNavbar(true);    // Show navbar
-        setShowSideMenu(false); // Hide sidebar
       }
     };
 
@@ -264,7 +233,7 @@ const useScrollDetection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return { showNavbar, showSideMenu };
+  return { showNavbar };
 };
 
 function App() {
@@ -796,7 +765,7 @@ language: "rust"
 
   const selectedProjectData = projects.find((project) => project.id === selectedProject);
 
-  const { showNavbar, showSideMenu } = useScrollDetection();
+  const { showNavbar } = useScrollDetection();
 
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);

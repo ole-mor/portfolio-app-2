@@ -261,75 +261,6 @@ html, body {
   z-index: 6;
 }
 
-
-.side-menu {
-  position: fixed;
-  top: 0;
-  left: -230px;
-  width: 90px;
-  height: 100%;
-  background-color: var(--side-menu-bg);
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  padding-top: 60px;
-  z-index: 1001;
-  transition: left 0.3s ease;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-
-}
-
-.side-menu.open {
-  left: 0;
-}
-
-.side-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  flex-direction: column;
-}
-
-.side-menu ul li {
-  display: block;
-}
-
-.side-menu ul li a {
-  color: var(--link-color);
-  padding: 5px;
-  text-decoration: none;
-  font-size: 1rem;
-  display: block;
-  transition: all 0.3s ease;
-}
-
-.side-menu ul li a:hover {
-  color: var(--link-hover-color);
-  transform: scale(1.1);
-  background-color: rgba(255, 255, 255, 2.0);
-  border-radius: 5px;
-}
-
-.menu-toggle {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  background-color: transparent;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 1003;
-  display: block;
-  border: none;
-}
-
-.menu-toggle img {
-  width: 30px;
-  height: 30px;
-}
-
 .section {
   position: relative;
   min-height: 100vh;
@@ -1119,7 +1050,7 @@ html, body {
 .squigliz-darkmode {
   height: 1000px;
   width: 1500px;
-  top: 10px;
+  top: -11px;
   position: relative;
   overflow: hidden;
   z-index: 2; /* Ensure images are on top */
