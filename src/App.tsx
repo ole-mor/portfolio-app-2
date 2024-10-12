@@ -328,7 +328,7 @@ const handleToggleDarkMode = (e: React.MouseEvent<HTMLButtonElement>) => {
         ripple.style.display = 'none';
         ripple.classList.remove('ripple-expand', 'ripple-retract');
         appElement.style.removeProperty('--background-color');
-      }, 2000); // Adjust this value to match your animation duration
+      }, 1000); // Adjust this value to match your animation duration
     }, 0);
   } else {
     setIsDarkMode(!isDarkMode);
@@ -804,7 +804,7 @@ language: "rust"
 
   const isAboutVisible = useOnScreen(aboutRef, 0.5);
   const isProjectsVisible = useOnScreen(projectsRef, 0);
-  const isContactVisible = useOnScreen(contactRef, 0.5);
+  const isContactVisible = useOnScreen(contactRef, 0);
 
   useEffect(() => {
     console.log('isProjectsVisible:', isProjectsVisible);
@@ -1334,38 +1334,29 @@ language: "rust"
         id="section4"
         ref={contactRef}
       >
-        {showSideMenu && <SideMenu isOpen={true} />}
-        <div className="contactinfo-text">
-          <div>
-            <p>Contact info:</p>
-          </div>
-          <div className="email">
-            <div className="profilepic">
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/images/profile.png`}
-                alt="profile"
-                className="profile"
-              />
+        <div className="lastpage">
+          
+          <div className="contactinfo-text">
+            <div className="bitter-homename">
+              <p>Contact info:</p>
             </div>
-            <a href="mailto:ole.ornas@gmail.com">ole.ornas@gmail.com</a>
+            <div className="bitter-homename">
+              <a href="mailto:ole.ornas@gmail.com">ole.ornas@gmail.com</a>
+            </div>
+            <div className="bitter-homename">
+              <a href="tel:+4799596170">99596170</a>
+            </div>
+            <div className="bitter-homename">
+              <a href="https://drive.google.com/file/d/1oZo5Ci-2AQnpfJNAx51p2nMq__H6K5Gj/view?usp=share_link">Resumé</a>
+            </div>
           </div>
-          <div>
-            <a href="resumélink">Resumé</a>
-          </div>
-        </div>
-        <div>
-          <div className="worldartpng">
+          <div className="squigliz">
             <img
-              src={`${process.env.PUBLIC_URL}/assets/images/worldart.png`}
-              alt="worldart"
-              className="worldart"
-            />
+                src={isDarkMode ? `${process.env.PUBLIC_URL}/assets/images/squigliz-darkmode.png` : `${process.env.PUBLIC_URL}/assets/images/squigliz.png`}
+                alt={isDarkMode ? 'sqglz-d' : 'sqlglz'}
+                className={isDarkMode ? 'squigliz-darkmode' : 'squigliz'}
+              />
           </div>
-          <img
-              src={isDarkMode ? `${process.env.PUBLIC_URL}/assets/images/squigliz-darkmode.png` : `${process.env.PUBLIC_URL}/assets/images/squigliz.png`}
-              alt={isDarkMode ? 'sqglz-d' : 'sqlglz'}
-              className={isDarkMode ? 'squigliz-darkmode' : 'squigliz'}
-            />
         </div>
       </section>
     </div>
